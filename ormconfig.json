@@ -1,0 +1,16 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "postgres",
+    "password": "postgres",
+    "database": "ioasys_final",
+    "synchronize": false,
+    "logging": false,
+    "migrations": ["dist/**/migrations/*.ts"],
+    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "cli": {
+        "entitiesDir": "./src/shared/entities/",
+        "migrationsDir": "./src/infra/typeorm/migrations"
+    }
+}
