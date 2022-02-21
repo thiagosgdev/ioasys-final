@@ -10,6 +10,11 @@ import {
 import * as winston from 'winston';
 import { CategoryModule } from './context/categories/category.module';
 import { SupplierModule } from './context/supplier/supplier.module';
+import { ProductModule } from './context/products/products.module';
+import { StockModule } from './context/stock/stock.module';
+import { OrderModule } from './context/orders/orders.module';
+import { ShipmentModule } from './context/shipments/shipments.module';
+import { AddressModule } from './context/addresses/address.module';
 
 @Module({
   imports: [
@@ -27,6 +32,11 @@ import { SupplierModule } from './context/supplier/supplier.module';
     UserModule,
     CategoryModule,
     SupplierModule,
+    ProductModule,
+    StockModule,
+    OrderModule,
+    ShipmentModule,
+    AddressModule,
   ],
   controllers: [],
   providers: [],
