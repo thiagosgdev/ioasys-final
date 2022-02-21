@@ -3,23 +3,38 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
-import { Product } from './product.entity';
+import { User } from './user.entity';
 
-@Entity('categories')
-export class Category {
+@Entity('addresses')
+export class Address {
   @PrimaryColumn()
   id: string;
 
   @Column()
-  name: string;
+  address: string;
 
-  @OneToMany(() => Product, (product) => product.category)
-  products: Product[];
+  @Column()
+  city: string;
+
+  @Column()
+  state: string;
+
+  @Column()
+  country: string;
+
+  @Column()
+  postal_code: string;
+
+  @Column()
+  user_id: string;
+
+  @ManyToOne(() => User, (user) => user.addresses)
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;

@@ -3,42 +3,43 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 import { Product } from './product.entity';
-import { Stock } from './stock.entity';
+import { Supplier } from './supplier.entity';
 
-@Entity('suppliers')
-export class Supplier {
+@Entity('stock')
+export class Stock {
   @PrimaryColumn()
   id: string;
 
   @Column()
-  name: string;
+  product_id: string;
 
   @Column()
-  company_registration: string;
+  supplier_id: string;
 
   @Column()
-  phone: number;
+  low_amount: number;
 
   @Column()
-  website: string;
+  unit_type: string;
 
   @Column()
-  email: string;
+  amount: number;
 
-  @Column()
-  representative_name: string;
+  @ManyToOne(() => Supplier)
+  @JoinColumn({ name: 'supplier_id', referencedColumnName: 'id' })
+  supplier: Supplier;
 
-  @OneToMany(() => Stock, (stock) => stock.supplier)
-  stock: Stock;
-
-  @OneToMany(() => Product, (product) => product.supplier)
-  products: Product[];
+  @OneToOne(() => Product, (product) => product.stock)
+  @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
+  product: Product;
 
   @CreateDateColumn()
   created_at: Date;

@@ -3,23 +3,36 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
-import { Product } from './product.entity';
-
-@Entity('categories')
-export class Category {
+import { User } from './user.entity';
+@Entity('orders')
+export class Order {
   @PrimaryColumn()
   id: string;
 
   @Column()
-  name: string;
+  user_id: string;
 
-  @OneToMany(() => Product, (product) => product.category)
-  products: Product[];
+  @Column()
+  quantity_items: number;
+
+  @Column()
+  discount: number;
+
+  @Column()
+  order_price: number;
+
+  @Column()
+  total_paid: number;
+
+  @ManyToOne(() => User, (user) => user.orders)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @CreateDateColumn()
   created_at: Date;

@@ -3,23 +3,23 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
-import { Product } from './product.entity';
-
-@Entity('categories')
-export class Category {
+@Entity('orders_products')
+export class OrderProduct {
   @PrimaryColumn()
   id: string;
 
   @Column()
-  name: string;
+  product_id: string;
 
-  @OneToMany(() => Product, (product) => product.category)
-  products: Product[];
+  @Column()
+  order_id: string;
+
+  @Column()
+  quantity: number;
 
   @CreateDateColumn()
   created_at: Date;
