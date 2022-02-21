@@ -6,11 +6,11 @@
     "password": "postgres",
     "database": "ioasys_final",
     "synchronize": false,
-    "logging": false,
-    "migrations": ["dist/**/migrations/*.ts"],
+    "logging": true,
+    "migrations": ["dist/**/migrations/*.{ts,js}", "./src/infra/typeorm/migrations/*.{ts,js"],
     "entities": ["dist/**/*.entity{.ts,.js}"],
     "cli": {
-        "entitiesDir": "./src/shared/entities/",
-        "migrationsDir": "./src/infra/typeorm/migrations"
+        "entitiesDir": "src/shared/entities/",
+        "migrationsDir": "src/infra/typeorm/migrations"
     }
 }
