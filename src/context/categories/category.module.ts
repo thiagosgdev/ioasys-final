@@ -6,6 +6,8 @@ import { CreateCategoryController } from './createCategory/createCategory.contro
 import { CreateCategoryService } from './createCategory/createCategory.service';
 import { ListCategoriesController } from './listCategories/listCategories.controller';
 import { ListCategoriesService } from './listCategories/listCategories.service';
+import { ListProductsByCategoryController } from './listProductsByCategory/listProductsByCategory.controller';
+import { ListProductsByCategoryService } from './listProductsByCategory/listProductsByCategory.service';
 
 @Module({
   imports: [DatabaseModule],
@@ -13,7 +15,12 @@ import { ListCategoriesService } from './listCategories/listCategories.service';
     ...categoryProviders,
     CreateCategoryService,
     ListCategoriesService,
+    ListProductsByCategoryService,
   ],
-  controllers: [CreateCategoryController, ListCategoriesController],
+  controllers: [
+    CreateCategoryController,
+    ListCategoriesController,
+    ListProductsByCategoryController,
+  ],
 })
 export class CategoryModule {}
