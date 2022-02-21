@@ -25,6 +25,10 @@ export class CreateStock1644409550057 implements MigrationInterface {
             default: 2,
           },
           {
+            name: 'unit_type',
+            type: 'varchar',
+          },
+          {
             name: 'amount',
             type: 'float',
           },
@@ -36,12 +40,26 @@ export class CreateStock1644409550057 implements MigrationInterface {
           {
             name: 'updated_at',
             type: 'timestamp',
-            default: 'now()',
+            isNullable: true,
           },
           {
             name: 'deleted_at',
             type: 'timestamp',
-            default: 'now()',
+            isNullable: true,
+          },
+        ],
+        foreignKeys: [
+          {
+            name: 'FKProductStock',
+            referencedTableName: 'products',
+            referencedColumnNames: ['id'],
+            columnNames: ['product_id'],
+          },
+          {
+            name: 'FKSupplierStock',
+            referencedTableName: 'suppliers',
+            referencedColumnNames: ['id'],
+            columnNames: ['supplier_id'],
           },
         ],
       }),

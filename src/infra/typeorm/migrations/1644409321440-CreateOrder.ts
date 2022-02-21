@@ -12,16 +12,12 @@ export class CreateOrder1644409321440 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'product_id',
-            type: 'uuid',
-          },
-          {
             name: 'user_id',
             type: 'uuid',
           },
           {
-            name: 'quantity',
-            type: 'float',
+            name: 'quantity_items',
+            type: 'integer',
           },
           {
             name: 'discount',
@@ -43,12 +39,20 @@ export class CreateOrder1644409321440 implements MigrationInterface {
           {
             name: 'updated_at',
             type: 'timestamp',
-            default: 'now()',
+            isNullable: true,
           },
           {
             name: 'deleted_at',
             type: 'timestamp',
-            default: 'now()',
+            isNullable: true,
+          },
+        ],
+        foreignKeys: [
+          {
+            name: 'FKUserOrder',
+            referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+            columnNames: ['user_id'],
           },
         ],
       }),

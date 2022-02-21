@@ -29,6 +29,16 @@ export class CreateUsers1621362476142 implements MigrationInterface {
             isUnique: true,
           },
           {
+            name: 'token',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'refresh_token',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'isAdmin',
             type: 'boolean',
             default: false,
@@ -41,12 +51,12 @@ export class CreateUsers1621362476142 implements MigrationInterface {
           {
             name: 'updated_at',
             type: 'timestamp',
-            default: 'now()',
+            isNullable: true,
           },
           {
             name: 'deleted_at',
             type: 'timestamp',
-            default: 'now()',
+            isNullable: true,
           },
         ],
       }),
