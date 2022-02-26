@@ -1,28 +1,27 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { ProductSize } from '../enums/productSize.enum';
 
-export class CreateProductDTO {
+export class CreateSupplierDTO {
   @IsString()
   @IsNotEmpty()
   name: string;
 
   @IsString()
   @IsNotEmpty()
-  size: ProductSize;
+  company_registration: string;
 
   @IsNumber()
   @IsNotEmpty()
-  price: number;
+  phone: number;
 
   @IsString()
   @IsNotEmpty()
-  brand: string;
+  website: string;
 
   @IsString()
   @IsNotEmpty()
-  category_id: string;
+  email: string;
 
   @IsString()
   @IsNotEmpty()
-  supplier_id: string;
+  representative_name: string;
 }
