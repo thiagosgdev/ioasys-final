@@ -1,17 +1,33 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Post,
+  Res,
+} from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
-import { CreateAddressDTO } from 'src/shared/dto/createAddress.dto';
+import { CreateAddressDTO } from 'src/shared/dtos/createAddress.dto';
 import { CreateAddressService } from './createAddress.service';
 
-@Controller('address')
+@Controller('addresses')
 export class CreateAddressController {
   constructor(private createAddressService: CreateAddressService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  public async create(@Body() data: CreateAddressDTO) {
+  public async create(@Res() res, @Body() data: CreateAddressDTO) {
+    const id = res.locals.user;
+    if (!id) {
+      throw new HttpException(
+        'User not authenticated!',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+    data.user_id = id;
     const address = await this.createAddressService.create(data);
-    return instanceToInstance(address);
+    return res.send(instanceToInstance(address));
   }
 }

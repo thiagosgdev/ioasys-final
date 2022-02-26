@@ -1,16 +1,16 @@
 import { Controller, Get, HttpCode, HttpStatus, Query } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
-import { FindAddressesByUserService } from './findAddressesByUser.service';
+import { FindAddressesByIdService } from './findAddressById.service';
 
-@Controller('address')
+@Controller('addresses')
 export class FindAddressesByUserController {
-  constructor(private findAddressesByUserService: FindAddressesByUserService) {}
+  constructor(private findAddressesByIdService: FindAddressesByIdService) {}
 
   @Get()
-  @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.OK)
   public async create(@Query('id') id: string) {
-    const address = await this.findAddressesByUserService.find(id);
+    const address = await this.findAddressesByIdService.find(id);
     return instanceToInstance(address);
   }
 }

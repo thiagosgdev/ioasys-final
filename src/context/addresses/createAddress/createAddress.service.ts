@@ -1,19 +1,14 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { CreateAddressDTO } from 'src/shared/dto/createAddress.dto';
+import { Injectable } from '@nestjs/common';
+import { CreateAddressDTO } from 'src/shared/dtos/createAddress.dto';
 import { Address } from 'src/shared/entities/address.entity';
-import { Repository } from 'typeorm';
+import { AddressRepo } from 'src/shared/repositories/address.repository';
 
 @Injectable()
 export class CreateAddressService {
-  constructor(
-    @Inject('ADDRESS_REPOSITORY')
-    private addressRepository: Repository<Address>,
-  ) {}
+  constructor(private readonly addressRepository: AddressRepo) {}
 
   async create(data: CreateAddressDTO): Promise<Address> {
-    const address = this.addressRepository.create(data);
-    await this.addressRepository.save(address);
-
+    const address = await this.addressRepository.create(data);
     return address;
   }
 }
