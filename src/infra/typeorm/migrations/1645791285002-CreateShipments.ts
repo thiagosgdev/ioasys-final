@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateProduct1644408117425 implements MigrationInterface {
+export class CreateShipments1645791285002 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'products',
+        name: 'shipments',
         columns: [
           {
             name: 'id',
@@ -12,28 +12,24 @@ export class CreateProduct1644408117425 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'name',
-            type: 'varchar',
-          },
-          {
-            name: 'size',
-            type: 'varchar',
-          },
-          {
-            name: 'price',
-            type: 'float',
-          },
-          {
-            name: 'brand',
-            type: 'varchar',
-          },
-          {
-            name: 'category_id',
+            name: 'order_id',
             type: 'uuid',
           },
           {
-            name: 'supplier_id',
+            name: 'address_id',
             type: 'uuid',
+          },
+          {
+            name: 'user_id',
+            type: 'uuid',
+          },
+          {
+            name: 'status',
+            type: 'varchar',
+          },
+          {
+            name: 'deadline',
+            type: 'timestamp',
           },
           {
             name: 'created_at',
@@ -53,16 +49,22 @@ export class CreateProduct1644408117425 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FKCategoryProduct',
-            referencedTableName: 'categories',
+            name: 'FKOrderShipment',
+            referencedTableName: 'orders',
             referencedColumnNames: ['id'],
-            columnNames: ['category_id'],
+            columnNames: ['order_id'],
           },
           {
-            name: 'FKSupplierProduct',
-            referencedTableName: 'suppliers',
+            name: 'FKAddressShipment',
+            referencedTableName: 'addresses',
             referencedColumnNames: ['id'],
-            columnNames: ['supplier_id'],
+            columnNames: ['address_id'],
+          },
+          {
+            name: 'FKUserShipment',
+            referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+            columnNames: ['user_id'],
           },
         ],
       }),
@@ -70,6 +72,6 @@ export class CreateProduct1644408117425 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('products');
+    await queryRunner.dropTable('shipments');
   }
 }

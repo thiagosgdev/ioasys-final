@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateStock1644409550057 implements MigrationInterface {
+export class CreateProducts1645791134675 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'stock',
+        name: 'products',
         columns: [
           {
             name: 'id',
@@ -12,25 +12,28 @@ export class CreateStock1644409550057 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'product_id',
+            name: 'name',
+            type: 'varchar',
+          },
+          {
+            name: 'size',
+            type: 'varchar',
+          },
+          {
+            name: 'price',
+            type: 'float',
+          },
+          {
+            name: 'brand',
+            type: 'varchar',
+          },
+          {
+            name: 'category_id',
             type: 'uuid',
           },
           {
             name: 'supplier_id',
             type: 'uuid',
-          },
-          {
-            name: 'low_amount',
-            type: 'float',
-            default: 2,
-          },
-          {
-            name: 'unit_type',
-            type: 'varchar',
-          },
-          {
-            name: 'amount',
-            type: 'float',
           },
           {
             name: 'created_at',
@@ -50,13 +53,13 @@ export class CreateStock1644409550057 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FKProductStock',
-            referencedTableName: 'products',
+            name: 'FKCategoryProduct',
+            referencedTableName: 'categories',
             referencedColumnNames: ['id'],
-            columnNames: ['product_id'],
+            columnNames: ['category_id'],
           },
           {
-            name: 'FKSupplierStock',
+            name: 'FKSupplierProduct',
             referencedTableName: 'suppliers',
             referencedColumnNames: ['id'],
             columnNames: ['supplier_id'],
@@ -67,6 +70,6 @@ export class CreateStock1644409550057 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('stock');
+    await queryRunner.dropTable('products');
   }
 }

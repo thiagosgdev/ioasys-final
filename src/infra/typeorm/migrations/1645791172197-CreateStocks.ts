@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateOrderProduct1645231251489 implements MigrationInterface {
+export class CreateStocks1645791172197 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'orders_products',
+        name: 'stocks',
         columns: [
           {
             name: 'id',
@@ -16,11 +16,20 @@ export class CreateOrderProduct1645231251489 implements MigrationInterface {
             type: 'uuid',
           },
           {
-            name: 'order_id',
+            name: 'supplier_id',
             type: 'uuid',
           },
           {
-            name: 'quantity',
+            name: 'low_amount',
+            type: 'float',
+            default: 2,
+          },
+          {
+            name: 'unit_type',
+            type: 'varchar',
+          },
+          {
+            name: 'amount',
             type: 'float',
           },
           {
@@ -41,22 +50,16 @@ export class CreateOrderProduct1645231251489 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'FKProductOrder',
+            name: 'FKProductStock',
             referencedTableName: 'products',
             referencedColumnNames: ['id'],
             columnNames: ['product_id'],
           },
           {
-            name: 'FKOrderProduct',
-            referencedTableName: 'orders',
+            name: 'FKSupplierStock',
+            referencedTableName: 'suppliers',
             referencedColumnNames: ['id'],
-            columnNames: ['order_id'],
-          },
-          {
-            name: 'FKOrderProductUsers',
-            referencedTableName: 'users',
-            referencedColumnNames: ['id'],
-            columnNames: ['user_id'],
+            columnNames: ['supplier_id'],
           },
         ],
       }),
@@ -64,6 +67,6 @@ export class CreateOrderProduct1645231251489 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('orders_products');
+    await queryRunner.dropTable('stocks');
   }
 }
