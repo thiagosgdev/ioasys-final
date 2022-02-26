@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Decrypter } from 'src/shared/providers/EncryptProvider/protocols/decrypter';
 import { Encrypter } from 'src/shared/providers/EncryptProvider/protocols/encrypter';
-import { UserRepo } from 'src/shared/repositories/user.repository';
+import { UserRepo } from 'src/modules/users/repository/user.repository';
 
 @Injectable()
 export class RefreshUsersTokenService {

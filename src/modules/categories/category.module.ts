@@ -13,7 +13,7 @@ import { ListProductsByCategoryService } from './contexts/listProductsByCategory
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from 'src/shared/entities/category.entity';
 import { User } from 'src/shared/entities/user.entity';
-import { UserRepo } from 'src/shared/repositories/user.repository';
+import { UserRepo } from 'src/modules/users/repository/user.repository';
 
 @Module({
   imports: [DatabaseModule, TypeOrmModule.forFeature([Category, User])],

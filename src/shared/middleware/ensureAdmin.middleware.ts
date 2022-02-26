@@ -3,7 +3,7 @@ import envConfig from 'src/config/env';
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import { UserRepo } from '../repositories/user.repository';
+import { UserRepo } from '../../modules/users/repository/user.repository';
 
 @Injectable()
 export class EnsureAdminMiddleware implements NestMiddleware {

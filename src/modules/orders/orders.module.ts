@@ -21,7 +21,7 @@ import { DeleteOrderController } from './contexts/deleteOrder/deleteOrder.contro
 import { FindOrderByIdService } from './contexts/findOrderById/findOrderById.service';
 import { FindOrderByIdController } from './contexts/findOrderById/findOrderById.controller';
 import { User } from 'src/shared/entities/user.entity';
-import { UserRepo } from 'src/shared/repositories/user.repository';
+import { UserRepo } from 'src/modules/users/repository/user.repository';
 import { OrderProductRepo } from './repository/orderProduct.repository';
 
 @Module({

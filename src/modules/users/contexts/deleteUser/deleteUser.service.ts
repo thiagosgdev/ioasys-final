@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepo } from 'src/shared/repositories/user.repository';
+import { UserRepo } from 'src/modules/users/repository/user.repository';
 
 @Injectable()
 export class DeleteUserService {

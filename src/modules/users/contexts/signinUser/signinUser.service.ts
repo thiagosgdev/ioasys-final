@@ -1,10 +1,9 @@
 import { Injectable, Inject, ConflictException } from '@nestjs/common';
 import { SigninResponseDTO } from 'src/shared/dtos/user/signinResponse.dto';
-import { User } from 'src/shared/entities/user.entity';
 import { Encrypter } from 'src/shared/providers/EncryptProvider/protocols/encrypter';
 import { EncrypterRefresh } from 'src/shared/providers/EncryptProvider/protocols/encrypterExpirationDate';
 import { Hasher } from 'src/shared/providers/HasherProvider/protocols/hasher';
-import { UserRepo } from 'src/shared/repositories/user.repository';
+import { UserRepo } from 'src/modules/users/repository/user.repository';
 
 @Injectable()
 export class SigninUserService {

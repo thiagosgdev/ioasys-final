@@ -9,9 +9,9 @@ import { ListShipmentsByUser } from 'src/domain/useCases/user/ListShipmentsByUse
 import { ListUsers } from 'src/domain/useCases/user/listUsers.usecase';
 import { UpdateUser } from 'src/domain/useCases/user/updateUser.usecase';
 import { Repository } from 'typeorm';
-import { CreateUserDTO } from '../dtos/createUser.dto';
-import { UpdateUserDTO } from '../dtos/updateUser.dto';
-import { User } from '../entities/user.entity';
+import { CreateUserDTO } from '../../../shared/dtos/createUser.dto';
+import { UpdateUserDTO } from '../../../shared/dtos/updateUser.dto';
+import { User } from '../../../shared/entities/user.entity';
 
 @Injectable()
 export class UserRepo

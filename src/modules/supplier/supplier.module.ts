@@ -11,7 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Supplier } from 'src/shared/entities/supplier.entity';
 import { SupplierRepo } from 'src/modules/supplier/repository/supplier.repository';
 import { User } from 'src/shared/entities/user.entity';
-import { UserRepo } from 'src/shared/repositories/user.repository';
+import { UserRepo } from 'src/modules/users/repository/user.repository';
 
 @Module({
   imports: [DatabaseModule, TypeOrmModule.forFeature([Supplier, User])],

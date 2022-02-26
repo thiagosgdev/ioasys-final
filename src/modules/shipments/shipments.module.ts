@@ -12,7 +12,7 @@ import { userProviders } from '../users/user.provider';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Shipment } from 'src/shared/entities/shipment.entity';
 import { User } from 'src/shared/entities/user.entity';
-import { UserRepo } from 'src/shared/repositories/user.repository';
+import { UserRepo } from 'src/modules/users/repository/user.repository';
 import { ShipmentRepo } from './repository/shipment.repository';
 
 @Module({

@@ -4,7 +4,7 @@ import { DatabaseModule } from 'src/infra/typeorm/database.module';
 import { Product } from 'src/shared/entities/product.entity';
 import { User } from 'src/shared/entities/user.entity';
 import { ProductRepo } from 'src/modules/products/repository/product.repository';
-import { UserRepo } from 'src/shared/repositories/user.repository';
+import { UserRepo } from 'src/modules/users/repository/user.repository';
 import { EnsureAdminMiddleware } from '../../shared/middleware/ensureAdmin.middleware';
 import { CreateProductController } from './contexts/createProduct/createProducts.controller';
 import { CreateProductService } from './contexts/createProduct/createProducts.service';

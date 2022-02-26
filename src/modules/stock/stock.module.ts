@@ -5,7 +5,7 @@ import { Stock } from 'src/shared/entities/stock.entity';
 import { User } from 'src/shared/entities/user.entity';
 import { EnsureAdminMiddleware } from 'src/shared/middleware/ensureAdmin.middleware';
 import { StockRepo } from 'src/modules/stock/repository/stock.repository';
-import { UserRepo } from 'src/shared/repositories/user.repository';
+import { UserRepo } from 'src/modules/users/repository/user.repository';
 import { userProviders } from '../users/user.provider';
 import { CreateStockController } from './contexts/createStock/createStock.controller';
 import { CreateStockService } from './contexts/createStock/createStock.service';
