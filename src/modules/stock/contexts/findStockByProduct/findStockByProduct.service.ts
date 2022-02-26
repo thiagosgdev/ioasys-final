@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Stock } from 'src/shared/entities/stock.entity';
-import { StockRepo } from 'src/shared/repositories/stock.repository';
+import { StockRepo } from 'src/modules/stock/repository/stock.repository';
 
 @Injectable()
 export class FindStockByProductService {

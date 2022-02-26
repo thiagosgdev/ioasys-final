@@ -4,9 +4,9 @@ import { FindStockByProductId } from 'src/domain/useCases/stock/findStockByProdu
 import { ListStock } from 'src/domain/useCases/stock/listStock.usecase';
 import { UpdateStock } from 'src/domain/useCases/stock/updateStock.usecase';
 import { Repository } from 'typeorm';
-import { CreateStockDTO } from '../dtos/createStock.dto';
-import { UpdateStockDTO } from '../dtos/updateStock.dto';
-import { Stock } from '../entities/stock.entity';
+import { CreateStockDTO } from '../../../shared/dtos/createStock.dto';
+import { UpdateStockDTO } from '../../../shared/dtos/updateStock.dto';
+import { Stock } from '../../../shared/entities/stock.entity';
 
 export class StockRepo
   implements CreateStock, ListStock, UpdateStock, FindStockByProductId

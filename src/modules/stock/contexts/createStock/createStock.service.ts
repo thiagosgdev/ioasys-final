@@ -1,7 +1,7 @@
 import { ConflictException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateStockDTO } from 'src/shared/dtos/createStock.dto';
 import { Stock } from 'src/shared/entities/stock.entity';
-import { StockRepo } from 'src/shared/repositories/stock.repository';
+import { StockRepo } from 'src/modules/stock/repository/stock.repository';
 
 @Injectable()
 export class CreateStockService {

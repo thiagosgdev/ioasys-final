@@ -3,7 +3,7 @@ import { CreateOrderDTO } from 'src/shared/dtos/createOrder.dto';
 import { Order } from 'src/shared/entities/order.entity';
 import { Stock } from 'src/shared/entities/stock.entity';
 import { OrderRepo } from 'src/modules/orders/repository/order.repository';
-import { StockRepo } from 'src/shared/repositories/stock.repository';
+import { StockRepo } from 'src/modules/stock/repository/stock.repository';
 import { OrderProductRepo } from '../../repository/orderProduct.repository';
 
 @Injectable()

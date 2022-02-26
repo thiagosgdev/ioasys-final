@@ -8,7 +8,7 @@ import { Stock } from 'src/shared/entities/stock.entity';
 import { EnsureAdminMiddleware } from 'src/shared/middleware/ensureAdmin.middleware';
 import { EnsureUserLoggedMiddleware } from 'src/shared/middleware/ensureLogged.middleware';
 import { OrderRepo } from 'src/modules/orders/repository/order.repository';
-import { StockRepo } from 'src/shared/repositories/stock.repository';
+import { StockRepo } from 'src/modules/stock/repository/stock.repository';
 import { stockProviders } from '../stock/stock.provider';
 import { CreateOrderController } from './contexts/createOrder/createOrder.controller';
 import { CreateOrderService } from './contexts/createOrder/createOrder.service';
