@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ProductRepo } from 'src/shared/repositories/product.repository';
+import { ProductRepo } from 'src/modules/products/repository/product.repository';
 
 @Injectable()
 export class DeleteProductService {

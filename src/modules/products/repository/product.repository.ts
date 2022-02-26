@@ -6,9 +6,9 @@ import { FindProductById } from 'src/domain/useCases/product/findProductById.use
 import { ListProducts } from 'src/domain/useCases/product/listProducts.usecase';
 import { UpdateProduct } from 'src/domain/useCases/product/updateProduct.usecase';
 import { Repository } from 'typeorm';
-import { CreateProductDTO } from '../dtos/createProduct.dto';
-import { UpdateProductDTO } from '../dtos/updateProduct.dto';
-import { Product } from '../entities/product.entity';
+import { CreateProductDTO } from '../../../shared/dtos/createProduct.dto';
+import { UpdateProductDTO } from '../../../shared/dtos/updateProduct.dto';
+import { Product } from '../../../shared/entities/product.entity';
 
 @Injectable()
 export class ProductRepo
