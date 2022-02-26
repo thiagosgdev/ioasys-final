@@ -10,7 +10,7 @@ export class ListCategoriesController {
   @Get()
   @HttpCode(HttpStatus.OK)
   public async create() {
-    const user = await this.listCategoriesService.list();
-    return instanceToInstance(user);
+    const categories = await this.listCategoriesService.list();
+    return instanceToInstance(categories);
   }
 }

@@ -1,19 +1,13 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { CreateCategoryDTO } from 'src/shared/dto/createCategory.dto';
+import { Injectable } from '@nestjs/common';
 import { Category } from 'src/shared/entities/category.entity';
-import { Repository } from 'typeorm';
+import { CategoryRepo } from 'src/shared/repositories/category.repository';
 
 @Injectable()
 export class ListCategoriesService {
-  constructor(
-    @Inject('CATEGORY_REPOSITORY')
-    private categoryRepository: Repository<Category>,
-  ) {}
+  constructor(private readonly categoryRepository: CategoryRepo) {}
 
   async list(): Promise<Category[]> {
-    const categories = await this.categoryRepository.query(
-      'SELECT * FROM categories',
-    );
+    const categories = await this.categoryRepository.list();
     return categories;
   }
 }

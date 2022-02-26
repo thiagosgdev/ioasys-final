@@ -1,5 +1,8 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { DatabaseModule } from 'src/infra/typeorm/database.module';
+import { EnsureAdminMiddleware } from 'src/shared/middleware/ensureAdmin.middleware';
+import { CategoryRepo } from 'src/shared/repositories/category.repository';
+import { userProviders } from '../users/user.provider';
 
 import { categoryProviders } from './category.provider';
 import { CreateCategoryController } from './createCategory/createCategory.controller';
@@ -8,11 +11,17 @@ import { ListCategoriesController } from './listCategories/listCategories.contro
 import { ListCategoriesService } from './listCategories/listCategories.service';
 import { ListProductsByCategoryController } from './listProductsByCategory/listProductsByCategory.controller';
 import { ListProductsByCategoryService } from './listProductsByCategory/listProductsByCategory.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Category } from 'src/shared/entities/category.entity';
+import { User } from 'src/shared/entities/user.entity';
+import { UserRepo } from 'src/shared/repositories/user.repository';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, TypeOrmModule.forFeature([Category, User])],
   providers: [
     ...categoryProviders,
+    UserRepo,
+    CategoryRepo,
     CreateCategoryService,
     ListCategoriesService,
     ListProductsByCategoryService,
@@ -23,4 +32,8 @@ import { ListProductsByCategoryService } from './listProductsByCategory/listProd
     ListProductsByCategoryController,
   ],
 })
-export class CategoryModule {}
+export class CategoryModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(EnsureAdminMiddleware).forRoutes('categories');
+  }
+}
