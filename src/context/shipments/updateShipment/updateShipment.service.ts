@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { CreateShipmentDTO } from 'src/shared/dtos/createShipment.dto';
+import { UpdateShipmentDTO } from 'src/shared/dtos/updateShipment.dto';
 import { Shipment } from 'src/shared/entities/shipment.entity';
 import { ShipmentRepo } from 'src/shared/repositories/shipment.repository';
 
 @Injectable()
-export class CreateShipmentService {
+export class UpdateShipmentService {
   constructor(private shipmentRepository: ShipmentRepo) {}
 
-  async create(data: CreateShipmentDTO): Promise<Shipment> {
-    const shipment = this.shipmentRepository.create(data);
+  async update(data: UpdateShipmentDTO): Promise<Shipment> {
+    const shipment = await this.shipmentRepository.update(data);
     return shipment;
   }
 }

@@ -1,17 +1,16 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Shipment } from 'src/shared/entities/shipment.entity';
-import { Repository } from 'typeorm';
+import { ShipmentRepo } from 'src/shared/repositories/shipment.repository';
 
 @Injectable()
 export class ListShipmentService {
-  constructor(
-    @Inject('SHIPMENT_REPOSITORY')
-    private shipmentRepository: Repository<Shipment>,
-  ) {}
+  constructor(private shipmentRepository: ShipmentRepo) {}
 
   async list(): Promise<Shipment[]> {
-    const shipments = this.shipmentRepository.query('SELECT * FROM shipment');
-
+    const shipments = await this.shipmentRepository.list();
+    if (shipments.length < 0) {
+      throw new HttpException('Not shipment Found!', HttpStatus.NOT_FOUND);
+    }
     return shipments;
   }
 }
