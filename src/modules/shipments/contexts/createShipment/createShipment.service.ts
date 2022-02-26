@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateShipmentDTO } from 'src/shared/dtos/createShipment.dto';
 import { Shipment } from 'src/shared/entities/shipment.entity';
-import { ShipmentRepo } from 'src/shared/repositories/shipment.repository';
+import { ShipmentRepo } from '../../repository/shipment.repository';
 
 @Injectable()
 export class CreateShipmentService {

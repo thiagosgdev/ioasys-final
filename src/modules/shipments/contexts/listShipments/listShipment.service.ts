@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Shipment } from 'src/shared/entities/shipment.entity';
-import { ShipmentRepo } from 'src/shared/repositories/shipment.repository';
+import { ShipmentRepo } from '../../repository/shipment.repository';
 
 @Injectable()
 export class ListShipmentService {
