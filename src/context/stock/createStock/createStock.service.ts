@@ -1,19 +1,20 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { CreateStockDTO } from 'src/shared/dto/createStock.dto';
+import { ConflictException, HttpStatus, Injectable } from '@nestjs/common';
+import { CreateStockDTO } from 'src/shared/dtos/createStock.dto';
 import { Stock } from 'src/shared/entities/stock.entity';
-import { Repository } from 'typeorm';
+import { StockRepo } from 'src/shared/repositories/stock.repository';
 
 @Injectable()
 export class CreateStockService {
-  constructor(
-    @Inject('STOCK_REPOSITORY')
-    private stockRepository: Repository<Stock>,
-  ) {}
+  constructor(private stockRepository: StockRepo) {}
 
   async create(data: CreateStockDTO): Promise<Stock> {
-    const stock = this.stockRepository.create(data);
-    await this.stockRepository.save(stock);
-
+    const productExists = await this.stockRepository.findByProduct(
+      data.product_id,
+    );
+    if (productExists) {
+      throw new ConflictException('Product already has an stock!');
+    }
+    const stock = await this.stockRepository.create(data);
     return stock;
   }
 }
