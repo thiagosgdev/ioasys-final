@@ -1,7 +1,7 @@
 import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
-import { ListOrdersService } from './listOrder.service';
+import { ListOrdersService } from './listOrders.service';
 
 @Controller('orders/list')
 export class ListOrdersController {
