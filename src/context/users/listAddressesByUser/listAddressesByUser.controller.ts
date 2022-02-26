@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Headers,
   HttpCode,
   HttpException,
   HttpStatus,
@@ -9,11 +8,11 @@ import {
 } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
-import { ListOrdersByUserService } from './listOrdersByUser.service';
+import { ListAddressesByUserService } from './listAddressesByUser.service';
 
-@Controller('users/orders')
-export class ListOrdersByUserController {
-  constructor(private listOrdersByUserService: ListOrdersByUserService) {}
+@Controller('users/addresses')
+export class ListAddressesByUserController {
+  constructor(private listAddressesByUserService: ListAddressesByUserService) {}
 
   @Get()
   @HttpCode(HttpStatus.OK)
@@ -25,7 +24,7 @@ export class ListOrdersByUserController {
         HttpStatus.UNAUTHORIZED,
       );
     }
-    const orders = await this.listOrdersByUserService.list(id);
-    return res.status(200).send(instanceToInstance(orders));
+    const addresses = await this.listAddressesByUserService.list(id);
+    return res.status(200).send(instanceToInstance(addresses));
   }
 }

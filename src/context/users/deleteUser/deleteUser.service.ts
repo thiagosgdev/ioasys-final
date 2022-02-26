@@ -1,15 +1,11 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { User } from 'src/shared/entities/user.entity';
-import { Repository } from 'typeorm';
+import { Injectable } from '@nestjs/common';
+import { UserRepo } from 'src/shared/repositories/user.repository';
 
 @Injectable()
 export class DeleteUserService {
-  constructor(
-    @Inject('USER_REPOSITORY')
-    private userRepository: Repository<User>,
-  ) {}
+  constructor(private userRepository: UserRepo) {}
 
   async delete(id: string) {
-    await this.userRepository.softDelete(id);
+    await this.userRepository.delete(id);
   }
 }

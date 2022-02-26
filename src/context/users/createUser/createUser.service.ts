@@ -1,36 +1,31 @@
 import { Injectable, Inject, ConflictException } from '@nestjs/common';
-import { CreateUserDTO } from 'src/shared/dto/createUser.dto';
+import { CreateUserDTO } from 'src/shared/dtos/createUser.dto';
 import { User } from 'src/shared/entities/user.entity';
-import { Hasher } from 'src/shared/providers/EncryptProvider/protocols/hasher';
-import { Repository } from 'typeorm';
+import { Hasher } from 'src/shared/providers/HasherProvider/protocols/hasher';
+import { UserRepo } from 'src/shared/repositories/user.repository';
 
 @Injectable()
 export class CreateUserService {
   constructor(
-    @Inject('USER_REPOSITORY')
-    private userRepository: Repository<User>,
+    private userRepository: UserRepo,
     @Inject('HASH_PROVIDER')
     private hasher: Hasher,
   ) {}
 
   async create(data: CreateUserDTO): Promise<User> {
-    const savedUser = await this.userRepository.query(
-      `SELECT first_name FROM users WHERE email = $1`,
-      [data.email],
-    );
-    if (savedUser.length > 0) {
+    const savedUser = await this.userRepository.findByEmail(data.email);
+    if (savedUser) {
       throw new ConflictException(
         'E-mail already in use! Try to recover your password',
       );
     }
 
-    const hashedPassword = this.hasher.createHash(data.password);
+    const hashedPassword = await this.hasher.createHash(data.password);
 
     const user = this.userRepository.create({
       ...data,
       password: hashedPassword,
     });
-    await this.userRepository.save(user);
 
     return user;
   }

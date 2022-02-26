@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
-import { CreateUserDTO } from 'src/shared/dto/createUser.dto';
+import { CreateUserDTO } from 'src/shared/dtos/createUser.dto';
 import { CreateUserService } from './createUser.service';
 
 @Controller('users')

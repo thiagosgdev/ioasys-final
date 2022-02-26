@@ -1,18 +1,16 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { User } from 'src/shared/entities/user.entity';
-import { Repository } from 'typeorm';
+import { UserRepo } from 'src/shared/repositories/user.repository';
 
 @Injectable()
 export class FindUserByEmailService {
-  constructor(
-    @Inject('USER_REPOSITORY')
-    private userRepository: Repository<User>,
-  ) {}
+  constructor(private userRepository: UserRepo) {}
 
   async findByEmail(email: string): Promise<User> {
-    return await this.userRepository.query(
-      'SELECT * FROM users WHERE email = $1',
-      [email],
-    );
+    const user = await this.userRepository.findByEmail(email);
+    if (!user) {
+      throw new HttpException('Not Found!', HttpStatus.NOT_FOUND);
+    }
+    return user;
   }
 }

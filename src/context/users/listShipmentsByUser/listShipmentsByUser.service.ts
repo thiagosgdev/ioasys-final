@@ -3,12 +3,11 @@ import { User } from 'src/shared/entities/user.entity';
 import { UserRepo } from 'src/shared/repositories/user.repository';
 
 @Injectable()
-export class ListOrdersByUserService {
+export class ListShipmentByUserService {
   constructor(private userRepository: UserRepo) {}
 
-  async list(id: string): Promise<User[]> {
-    const userOrders = await this.userRepository.listOrders(id);
-
-    return userOrders;
+  async list(id: string): Promise<User> {
+    const userShipments = await this.userRepository.listShipments(id);
+    return userShipments;
   }
 }

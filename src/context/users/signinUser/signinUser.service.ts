@@ -1,48 +1,43 @@
 import { Injectable, Inject, ConflictException } from '@nestjs/common';
+import { SigninResponseDTO } from 'src/shared/dtos/user/signinResponse.dto';
 import { User } from 'src/shared/entities/user.entity';
-import { Encrypter } from 'src/shared/providers/CriptographyProvider/protocols/encrypter';
-import { EncrypterExpirationDate } from 'src/shared/providers/CriptographyProvider/protocols/encrypterExpirationDate';
-import { Hasher } from 'src/shared/providers/EncryptProvider/protocols/hasher';
-import { Repository } from 'typeorm';
+import { Encrypter } from 'src/shared/providers/EncryptProvider/protocols/encrypter';
+import { EncrypterRefresh } from 'src/shared/providers/EncryptProvider/protocols/encrypterExpirationDate';
+import { Hasher } from 'src/shared/providers/HasherProvider/protocols/hasher';
+import { UserRepo } from 'src/shared/repositories/user.repository';
 
 @Injectable()
 export class SigninUserService {
   constructor(
-    @Inject('USER_REPOSITORY')
-    private userRepository: Repository<User>,
+    private userRepository: UserRepo,
     @Inject('HASH_PROVIDER')
     private hasher: Hasher,
     @Inject('ENCRYPTER_PROVIDER')
     private encrypter: Encrypter,
     @Inject('ENCRYPTER_PROVIDER')
-    private encrypterExpDate: EncrypterExpirationDate,
+    private encrypterRefresh: EncrypterRefresh,
   ) {}
 
-  async signin(email: string, password: string): Promise<any> {
-    const user = await this.userRepository.query(
-      `SELECT id, email, password FROM users WHERE email = $1`,
-      [email],
-    );
+  async signin(email: string, password: string): Promise<SigninResponseDTO> {
+    const user = await this.userRepository.findByEmail(email);
 
-    if (!user[0].password) {
+    if (!user.password) {
       user.password = String(Math.random() * 1000) + 'F4!L';
     }
 
-    const isValid = await this.hasher.compareHash(password, user[0].password);
-
-    console.log(`USER: ${user} ISVALID: ${isValid}`);
+    const isValid = await this.hasher.compareHash(password, user.password);
 
     if (!isValid) {
       throw new ConflictException('E-mail and/or password wrong!');
     }
 
-    const token = await this.encrypter.encrypt(user[0].id);
-    const refreshToken = await this.encrypterExpDate.encryptExpDate(user[0].id);
+    const token = await this.encrypter.encrypt(user.id);
+    const refreshToken = await this.encrypterRefresh.encryptRefresh(user.id);
 
-    await this.userRepository.update(
-      { id: user[0].id },
-      { token, refreshToken: refreshToken },
-    );
+    await this.userRepository.update(user.id, {
+      token,
+      refresh_token: refreshToken,
+    });
 
     return { token, refreshToken };
   }

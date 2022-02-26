@@ -11,7 +11,6 @@ export class SigninUserController {
   @HttpCode(HttpStatus.OK)
   public async create(@Body() data) {
     const { email, password } = data;
-    console.log(`EMAIL: ${email}, PASSWORD: ${password}`);
     const tokens = await this.signinUserService.signin(email, password);
     return instanceToInstance(tokens);
   }

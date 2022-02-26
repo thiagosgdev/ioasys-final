@@ -1,7 +1,12 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseModule } from 'src/infra/typeorm/database.module';
-import { JwtProvider } from 'src/shared/providers/CriptographyProvider/jwt.provider';
-import { BcryptProvider } from 'src/shared/providers/EncryptProvider/bcrypt.provider';
+import { User } from 'src/shared/entities/user.entity';
+import { EnsureAdminMiddleware } from 'src/shared/middleware/ensureAdmin.middleware';
+import { EnsureUserLoggedMiddleware } from 'src/shared/middleware/ensureLogged.middleware';
+import { JwtProvider } from 'src/shared/providers/EncryptProvider/jwt.provider';
+import { BcryptProvider } from 'src/shared/providers/HasherProvider/bcrypt.provider';
+import { UserRepo } from 'src/shared/repositories/user.repository';
 import { CreateUserController } from './createUser/createUser.controller';
 import { CreateUserService } from './createUser/createUser.service';
 import { DeleteUserController } from './deleteUser/deleteUser.controller';
@@ -12,8 +17,12 @@ import { ListAddressesByUserController } from './listAddressesByUser/listAddress
 import { ListAddressesByUserService } from './listAddressesByUser/listAddressesByUser.service';
 import { ListOrdersByUserController } from './listOrdersByUser/listOrdersByUser.controller';
 import { ListOrdersByUserService } from './listOrdersByUser/listOrdersByUser.service';
+import { ListShipmentsByUserController } from './listShipmentsByUser/listShipmentsByUser.controller';
+import { ListShipmentByUserService } from './listShipmentsByUser/listShipmentsByUser.service';
 import { ListUsersController } from './listUsers/listUsers.controller';
 import { ListUsersService } from './listUsers/listUsers.service';
+import { RefreshUsersTokenController } from './refreshUsersToken/refreshUsersToken.controller';
+import { RefreshUsersTokenService } from './refreshUsersToken/refreshUsersToken.service';
 import { SigninUserController } from './signinUser/signinUser.controller';
 import { SigninUserService } from './signinUser/signinUser.service';
 import { UpdateUserController } from './updateUser/updateUser.controller';
@@ -21,11 +30,12 @@ import { UpdateUserService } from './updateUser/updateUser.service';
 import { userProviders } from './user.provider';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, TypeOrmModule.forFeature([User])],
   providers: [
     { provide: 'HASH_PROVIDER', useClass: BcryptProvider },
     { provide: 'ENCRYPTER_PROVIDER', useClass: JwtProvider },
     ...userProviders,
+    UserRepo,
     CreateUserService,
     FindUserByEmailService,
     ListUsersService,
@@ -34,6 +44,8 @@ import { userProviders } from './user.provider';
     SigninUserService,
     ListOrdersByUserService,
     ListAddressesByUserService,
+    ListShipmentByUserService,
+    RefreshUsersTokenService,
   ],
   controllers: [
     CreateUserController,
@@ -44,6 +56,22 @@ import { userProviders } from './user.provider';
     SigninUserController,
     ListOrdersByUserController,
     ListAddressesByUserController,
+    ListShipmentsByUserController,
+    RefreshUsersTokenController,
   ],
 })
-export class UserModule {}
+export class UserModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(EnsureUserLoggedMiddleware)
+      .forRoutes(
+        UpdateUserController,
+        DeleteUserController,
+        RefreshUsersTokenController,
+        ListShipmentsByUserController,
+        ListOrdersByUserController,
+        ListAddressesByUserController,
+      );
+    //consumer.apply(EnsureAdminMiddleware).forRoutes(ListUsersController);
+  }
+}
