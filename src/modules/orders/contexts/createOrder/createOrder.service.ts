@@ -1,10 +1,10 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateOrderDTO } from 'src/shared/dtos/createOrder.dto';
 import { Order } from 'src/shared/entities/order.entity';
 import { Stock } from 'src/shared/entities/stock.entity';
-import { OrderRepo } from 'src/shared/repositories/order.repository';
-import { OrderProductRepo } from 'src/shared/repositories/orderProduct.repository';
+import { OrderRepo } from 'src/modules/orders/repository/order.repository';
 import { StockRepo } from 'src/shared/repositories/stock.repository';
+import { OrderProductRepo } from '../../repository/orderProduct.repository';
 
 @Injectable()
 export class CreateOrderService {

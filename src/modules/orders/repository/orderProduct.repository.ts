@@ -1,6 +1,6 @@
+import { OrderProduct } from 'src/shared/entities/order_product.entity';
 import { Repository } from 'typeorm';
-import { CreateOrderProductDTO } from '../dtos/order/CreateOrderProduct.dto';
-import { OrderProduct } from '../entities/order_product.entity';
+import { CreateOrderProductDTO } from '../../../shared/dtos/order/CreateOrderProduct.dto';
 
 export class OrderProductRepo {
   constructor(private readonly repository: Repository<OrderProduct>) {}

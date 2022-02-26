@@ -4,8 +4,8 @@ import { DeleteOrder } from 'src/domain/useCases/order/deleteOrder.usecase';
 import { FindOrderById } from 'src/domain/useCases/order/findOrderById.usecase';
 import { ListOrders } from 'src/domain/useCases/order/listOrders.usecase';
 import { Repository } from 'typeorm';
-import { CreateOrderDTO } from '../dtos/createOrder.dto';
-import { Order } from '../entities/order.entity';
+import { CreateOrderDTO } from '../../../shared/dtos/createOrder.dto';
+import { Order } from '../../../shared/entities/order.entity';
 
 export class OrderRepo
   implements CreateOrder, FindOrderById, ListOrders, DeleteOrder
