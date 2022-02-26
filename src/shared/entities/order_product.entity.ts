@@ -19,6 +19,9 @@ export class OrderProduct {
   order_id: string;
 
   @Column()
+  user_id: string;
+
+  @Column()
   quantity: number;
 
   @CreateDateColumn()

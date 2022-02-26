@@ -10,6 +10,13 @@ import {
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 import { User } from './user.entity';
+
+enum Status {
+  PROCESSING = 'processing',
+  REJECTED = 'rejected',
+  ACCEPTED = 'accepted',
+}
+
 @Entity('orders')
 export class Order {
   @PrimaryColumn()
@@ -29,6 +36,9 @@ export class Order {
 
   @Column()
   total_paid: number;
+
+  @Column()
+  payment_status: Status;
 
   @ManyToOne(() => User, (user) => user.orders)
   @JoinColumn({ name: 'user_id' })

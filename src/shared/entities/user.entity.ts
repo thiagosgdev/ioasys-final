@@ -1,5 +1,4 @@
 import { Exclude } from 'class-transformer';
-import { IsEmail } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -18,16 +17,16 @@ export class User {
   @PrimaryColumn()
   id: string;
 
-  @Column({ name: 'first_name' })
-  firstName: string;
+  @Column()
+  first_name: string;
 
-  @Column({ name: 'last_name' })
-  lastName: string;
+  @Column()
+  last_name: string;
 
   @Column()
   email: string;
 
-  @Column()
+  @Column({ select: false })
   @Exclude()
   password: string;
 
@@ -35,10 +34,10 @@ export class User {
   token: string;
 
   @Column({ name: 'refresh_token' })
-  refreshToken: string;
+  refresh_token: string;
 
   @Column()
-  isAdmin: boolean;
+  is_admin: boolean;
 
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];

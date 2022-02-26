@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
@@ -34,6 +35,7 @@ export class Address {
   user_id: string;
 
   @ManyToOne(() => User, (user) => user.addresses)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @CreateDateColumn()

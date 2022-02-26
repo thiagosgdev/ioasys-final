@@ -13,7 +13,7 @@ import { v4 as uuidV4 } from 'uuid';
 import { Product } from './product.entity';
 import { Supplier } from './supplier.entity';
 
-@Entity('stock')
+@Entity('stocks')
 export class Stock {
   @PrimaryColumn()
   id: string;

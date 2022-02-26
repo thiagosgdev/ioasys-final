@@ -7,6 +7,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
+import { ShipmentStatus } from '../enums/shipmentStatus.enum';
+
 @Entity('shipments')
 export class Shipment {
   @PrimaryColumn()
@@ -19,7 +21,7 @@ export class Shipment {
   address_id: string;
 
   @Column()
-  status: string;
+  status: ShipmentStatus;
 
   @Column()
   deadline: Date;
