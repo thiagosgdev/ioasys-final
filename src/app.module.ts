@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './context/users/user.module';
+import { UserModule } from './modules/users/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import {
@@ -8,13 +8,13 @@ import {
 } from 'nest-winston';
 
 import * as winston from 'winston';
-import { CategoryModule } from './context/categories/category.module';
-import { SupplierModule } from './context/supplier/supplier.module';
-import { ProductModule } from './context/products/products.module';
-import { StockModule } from './context/stock/stock.module';
-import { OrderModule } from './context/orders/orders.module';
-import { ShipmentModule } from './context/shipments/shipments.module';
-import { AddressModule } from './context/addresses/address.module';
+import { CategoryModule } from './modules/categories/category.module';
+import { SupplierModule } from './modules/supplier/supplier.module';
+import { ProductModule } from './modules/products/products.module';
+import { StockModule } from './modules/stock/stock.module';
+import { OrderModule } from './modules/orders/orders.module';
+import { ShipmentModule } from './modules/shipments/shipments.module';
+import { AddressModule } from './modules/addresses/address.module';
 
 @Module({
   imports: [

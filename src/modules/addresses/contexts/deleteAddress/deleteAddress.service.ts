@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { AddressRepo } from 'src/shared/repositories/address.repository';
+import { AddressRepo } from 'src/modules/addresses/repository/address.repository';
 
 @Injectable()
 export class DeleteAddressService {

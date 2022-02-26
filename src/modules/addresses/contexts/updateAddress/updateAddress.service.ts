@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateAddressDTO } from 'src/shared/dtos/updateAddress.dto';
 import { Address } from 'src/shared/entities/address.entity';
-import { AddressRepo } from 'src/shared/repositories/address.repository';
+import { AddressRepo } from 'src/modules/addresses/repository/address.repository';
 
 @Injectable()
 export class UpdateAddressService {
