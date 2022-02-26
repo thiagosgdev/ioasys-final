@@ -1,17 +1,16 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Product } from 'src/shared/entities/product.entity';
-import { Repository } from 'typeorm';
+import { ProductRepo } from 'src/shared/repositories/product.repository';
 
 @Injectable()
 export class ListProductsService {
-  constructor(
-    @Inject('PRODUCT_REPOSITORY')
-    private productRepository: Repository<Product>,
-  ) {}
+  constructor(private productRepository: ProductRepo) {}
 
   async list(): Promise<Product[]> {
-    const products = await this.productRepository.find();
-
+    const products = await this.productRepository.list();
+    if (products.length < 0) {
+      throw new HttpException('Not Found!', HttpStatus.NOT_FOUND);
+    }
     return products;
   }
 }

@@ -1,28 +1,14 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { UpdateProductDTO } from 'src/shared/dto/updateProduct.dto';
+import { Injectable } from '@nestjs/common';
+import { UpdateProductDTO } from 'src/shared/dtos/updateProduct.dto';
 import { Product } from 'src/shared/entities/product.entity';
-import { Repository } from 'typeorm';
+import { ProductRepo } from 'src/shared/repositories/product.repository';
 
 @Injectable()
 export class UpdateProductService {
-  constructor(
-    @Inject('PRODUCT_REPOSITORY')
-    private productRepository: Repository<Product>,
-  ) {}
+  constructor(private productRepository: ProductRepo) {}
 
   async update(data: UpdateProductDTO): Promise<Product> {
-    const product = this.productRepository.query(
-      'SELECT * FROM products WHERE id = $1',
-      [data.id],
-    );
-
-    const updatedProduct = {
-      ...product,
-      ...data,
-    };
-
-    await this.productRepository.save(updatedProduct);
-
+    const product = await this.productRepository.update(data);
     return product;
   }
 }

@@ -1,20 +1,13 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Stock } from 'src/shared/entities/stock.entity';
-import { Repository } from 'typeorm';
+import { StockRepo } from 'src/shared/repositories/stock.repository';
 
 @Injectable()
 export class FindStockByProductService {
-  constructor(
-    @Inject('STOCK_REPOSITORY')
-    private stockRepository: Repository<Stock>,
-  ) {}
+  constructor(private stockRepository: StockRepo) {}
 
   async find(id: string): Promise<Stock> {
-    const stock = await this.stockRepository.findOne({
-      where: { product_id: id },
-      relations: ['product'],
-    });
-
+    const stock = await this.stockRepository.findByProduct(id);
     return stock;
   }
 }
