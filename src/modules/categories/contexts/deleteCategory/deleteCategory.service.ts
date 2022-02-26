@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CategoryRepo } from 'src/shared/repositories/category.repository';
+import { CategoryRepo } from 'src/modules/categories/repository/category.repository';
 
 @Injectable()
 export class DeleteCategoryService {

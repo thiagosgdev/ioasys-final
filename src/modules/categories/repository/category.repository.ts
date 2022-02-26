@@ -7,9 +7,9 @@ import { ListCategories } from 'src/domain/useCases/category/listCategories.usec
 import { ListProductsByCategory } from 'src/domain/useCases/category/listProductsByCategory.usecase';
 import { UpdateCategory } from 'src/domain/useCases/category/updateCategory.usecase';
 import { Repository } from 'typeorm';
-import { CreateCategoryDTO } from '../dtos/category/createCategory.dto';
-import { UpdateCategoryDTO } from '../dtos/category/updateCategory.dto';
-import { Category } from '../entities/category.entity';
+import { CreateCategoryDTO } from '../../../shared/dtos/category/createCategory.dto';
+import { UpdateCategoryDTO } from '../../../shared/dtos/category/updateCategory.dto';
+import { Category } from '../../../shared/entities/category.entity';
 
 @Injectable()
 export class CategoryRepo

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Category } from 'src/shared/entities/category.entity';
-import { CategoryRepo } from 'src/shared/repositories/category.repository';
+import { CategoryRepo } from 'src/modules/categories/repository/category.repository';
 
 @Injectable()
 export class ListProductsByCategoryService {
