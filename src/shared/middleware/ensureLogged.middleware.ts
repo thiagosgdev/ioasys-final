@@ -13,9 +13,7 @@ export class EnsureUserLoggedMiddleware implements NestMiddleware {
       verify(token, envConfig().jwtSecret, async (err, payload) => {
         if (!err) {
           const id = String(payload.sub);
-          req.user = {
-            id,
-          };
+          res.locals.user = id;
           next();
         } else {
           return res.status(403).json({ message: 'User not authenticated!' });

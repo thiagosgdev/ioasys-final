@@ -1,17 +1,13 @@
 import envConfig from 'src/config/env';
 
-import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import { Repository } from 'typeorm';
-import { User } from 'src/shared/entities/user.entity';
+import { UserRepo } from '../repositories/user.repository';
 
 @Injectable()
 export class EnsureAdminMiddleware implements NestMiddleware {
-  constructor(
-    @Inject('USER_REPOSITORY')
-    private userRepository: Repository<User>,
-  ) {}
+  constructor(private userRepository: UserRepo) {}
   async use(req: Request, res: Response, next: NextFunction) {
     try {
       let token = req.headers.authorization;
@@ -23,11 +19,12 @@ export class EnsureAdminMiddleware implements NestMiddleware {
       token = token.split(' ')[1];
       verify(token, envConfig().jwtSecret, async (err, payload) => {
         if (!err) {
-          const id = String(payload.sub);
-          const user = await this.userRepository.findOne(id);
-          if (!user.isAdmin) {
+          const user_id = String(payload.sub);
+          const user = await this.userRepository.findById(user_id);
+          if (!user.is_admin) {
             throw new Error('Access denied!');
           }
+          res.locals.user = user_id;
           next();
         } else {
           return res.status(403).json({ message: 'User not authenticated!' });
