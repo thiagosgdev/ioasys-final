@@ -1,7 +1,15 @@
-import { Body, Controller, HttpCode, HttpStatus, Put } from '@nestjs/common';
-
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Put,
+  Response,
+} from '@nestjs/common';
+import { Request } from 'express';
 import { instanceToInstance } from 'class-transformer';
-import { UpdateUserDTO } from 'src/shared/dto/updateUser.dto';
+import { UpdateUserDTO } from 'src/shared/dtos/updateUser.dto';
 import { UpdateUserService } from './updateUser.service';
 import {
   ApiBadRequestResponse,
@@ -9,6 +17,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { User } from 'src/shared/entities/user.entity';
+import { UserResponseDTO } from 'src/shared/dtos/user/userResponse.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -23,8 +32,19 @@ export class UpdateUserController {
   @ApiBadRequestResponse({
     description: 'This will be returned when has validation error',
   })
-  public async create(@Body() updateUserRequestBody: UpdateUserDTO) {
-    const user = await this.updateUserService.update(updateUserRequestBody);
-    return instanceToInstance(user);
+  public async create(
+    @Body() updateUserRequestBody: UpdateUserDTO,
+    @Response() res,
+  ): Promise<User> {
+    const id = res.locals.user;
+    if (!id) {
+      throw new HttpException(
+        'User not authenticated!',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+    const user = await this.updateUserService.update(id, updateUserRequestBody);
+    const teste = instanceToInstance(user);
+    return res.send(teste);
   }
 }
