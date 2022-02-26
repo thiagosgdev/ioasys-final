@@ -2,15 +2,14 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { DatabaseModule } from 'src/infra/typeorm/database.module';
 
 import { supplierProviders } from './supplier.provider';
-import { CreateSupplierService } from './createSupplier/createSupplier.service';
-import { CreateSupplierController } from './createSupplier/createSupplier.controller';
-import { ListSuppliersService } from './listSuppliers/listSuppliers.service';
-import { ListSuppliersController } from './listSuppliers/listSuppliers.controller';
+import { CreateSupplierService } from './contexts/createSupplier/createSupplier.service';
+import { CreateSupplierController } from './contexts/createSupplier/createSupplier.controller';
+import { ListSuppliersService } from './contexts/listSuppliers/listSuppliers.service';
+import { ListSuppliersController } from './contexts/listSuppliers/listSuppliers.controller';
 import { EnsureAdminMiddleware } from 'src/shared/middleware/ensureAdmin.middleware';
-import { userProviders } from '../users/user.provider';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Supplier } from 'src/shared/entities/supplier.entity';
-import { SupplierRepo } from 'src/shared/repositories/supplier.repository';
+import { SupplierRepo } from 'src/modules/supplier/repository/supplier.repository';
 import { User } from 'src/shared/entities/user.entity';
 import { UserRepo } from 'src/shared/repositories/user.repository';
 

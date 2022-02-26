@@ -1,6 +1,6 @@
 import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { Supplier } from 'src/shared/entities/supplier.entity';
-import { SupplierRepo } from 'src/shared/repositories/supplier.repository';
+import { SupplierRepo } from 'src/modules/supplier/repository/supplier.repository';
 import { Repository } from 'typeorm';
 
 @Injectable()

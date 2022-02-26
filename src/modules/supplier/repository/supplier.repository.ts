@@ -2,8 +2,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateSupplier } from 'src/domain/useCases/supplier/createSupplier.usecase';
 import { ListSuppliers } from 'src/domain/useCases/supplier/listSuppliers.usecase';
 import { Repository } from 'typeorm';
-import { CreateSupplierDTO } from '../dtos/supplier/createSupplier.dto';
-import { Supplier } from '../entities/supplier.entity';
+import { CreateSupplierDTO } from '../../../shared/dtos/supplier/createSupplier.dto';
+import { Supplier } from '../../../shared/entities/supplier.entity';
 
 export class SupplierRepo implements CreateSupplier, ListSuppliers {
   constructor(
