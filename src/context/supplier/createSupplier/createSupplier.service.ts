@@ -1,19 +1,14 @@
-import { Injectable, Inject } from '@nestjs/common';
-import { CreateSupplierDTO } from 'src/shared/dto/createSupplier.dto';
+import { Injectable } from '@nestjs/common';
+import { CreateSupplierDTO } from 'src/shared/dtos/supplier/createSupplier.dto';
 import { Supplier } from 'src/shared/entities/supplier.entity';
-import { Repository } from 'typeorm';
+import { SupplierRepo } from 'src/shared/repositories/supplier.repository';
 
 @Injectable()
 export class CreateSupplierService {
-  constructor(
-    @Inject('SUPPLIER_REPOSITORY')
-    private supplierRepository: Repository<Supplier>,
-  ) {}
+  constructor(private supplierRepository: SupplierRepo) {}
 
   async create(data: CreateSupplierDTO): Promise<Supplier> {
-    const supplier = this.supplierRepository.create(data);
-    await this.supplierRepository.save(supplier);
-
+    const supplier = await this.supplierRepository.create(data);
     return supplier;
   }
 }
