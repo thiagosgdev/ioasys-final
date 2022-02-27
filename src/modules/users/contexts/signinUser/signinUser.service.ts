@@ -20,7 +20,7 @@ export class SigninUserService {
   async signin(email: string, password: string): Promise<SigninResponseDTO> {
     const user = await this.userRepository.findByEmail(email);
 
-    if (!user.password) {
+    if (!user) {
       user.password = String(Math.random() * 1000) + 'F4!L';
     }
 

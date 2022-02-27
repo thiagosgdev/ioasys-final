@@ -1,18 +1,26 @@
 import { Test } from '@nestjs/testing';
+import { Response } from 'express';
 import MockDate from 'mockdate';
-import { CreateCategoryDTO } from 'src/shared/dtos/category/createCategory.dto';
 
 import { Category } from 'src/shared/entities/category.entity';
 import { CreateCategoryController } from './createCategory.controller';
 import { CreateCategoryService } from './createCategory.service';
 
-const mockCreateCategoryUseCase = {
+const mockStatusResponse = {
+  send: jest.fn((x) => x),
+};
+const mockResponse = {
+  status: jest.fn((x) => mockStatusResponse),
+  send: jest.fn((x) => x),
+} as unknown as Response;
+
+const mockCreateCategoryService = {
   create: jest.fn((dto) => {
     return mockCreateCategoryResponse();
   }),
 };
 
-const mockCreateCategoryDTO = (): CreateCategoryDTO => ({
+const mockCreateCategoryDTO = () => ({
   name: 'test_category',
 });
 
@@ -36,7 +44,7 @@ describe('Create Category Controller', () => {
       providers: [CreateCategoryService],
     })
       .overrideProvider(CreateCategoryService)
-      .useValue(mockCreateCategoryUseCase)
+      .useValue(mockCreateCategoryService)
       .compile();
 
     categoryController = moduleRef.get<CreateCategoryController>(
@@ -47,10 +55,17 @@ describe('Create Category Controller', () => {
   describe('Create Category', () => {
     it('Should return the Created Category', async () => {
       const result: Category = mockCreateCategoryResponse();
+      expect(
+        await categoryController.create(mockCreateCategoryDTO(), mockResponse),
+      ).toEqual(result);
+    });
 
-      expect(await categoryController.create(mockCreateCategoryDTO())).toEqual(
-        result,
-      );
+    it('Should return 400 if a Bad Request is made', async () => {
+      jest
+        .spyOn(mockCreateCategoryService, 'create')
+        .mockReturnValueOnce(await Promise.resolve(null));
+      await categoryController.create({ name: 'teste' }, mockResponse);
+      expect(mockResponse.status).toHaveBeenCalledWith(400);
     });
   });
 });

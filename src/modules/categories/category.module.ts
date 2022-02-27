@@ -14,6 +14,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from 'src/shared/entities/category.entity';
 import { User } from 'src/shared/entities/user.entity';
 import { UserRepo } from 'src/modules/users/repository/user.repository';
+import { DeleteCategoryService } from './contexts/deleteCategory/deleteCategory.service';
+import { DeleteCategoryController } from './contexts/deleteCategory/deleteCategory.controller';
 
 @Module({
   imports: [DatabaseModule, TypeOrmModule.forFeature([Category, User])],
@@ -24,11 +26,13 @@ import { UserRepo } from 'src/modules/users/repository/user.repository';
     CreateCategoryService,
     ListCategoriesService,
     ListProductsByCategoryService,
+    DeleteCategoryService,
   ],
   controllers: [
     CreateCategoryController,
     ListCategoriesController,
     ListProductsByCategoryController,
+    DeleteCategoryController,
   ],
 })
 export class CategoryModule implements NestModule {

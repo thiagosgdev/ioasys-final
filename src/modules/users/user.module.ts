@@ -35,6 +35,7 @@ import { userProviders } from './user.provider';
     { provide: 'HASH_PROVIDER', useClass: BcryptProvider },
     { provide: 'ENCRYPTER_PROVIDER', useClass: JwtProvider },
     ...userProviders,
+    BcryptProvider,
     UserRepo,
     CreateUserService,
     FindUserByEmailService,
@@ -72,6 +73,6 @@ export class UserModule implements NestModule {
         ListOrdersByUserController,
         ListAddressesByUserController,
       );
-    //consumer.apply(EnsureAdminMiddleware).forRoutes(ListUsersController);
+    consumer.apply(EnsureAdminMiddleware).forRoutes(ListUsersController);
   }
 }

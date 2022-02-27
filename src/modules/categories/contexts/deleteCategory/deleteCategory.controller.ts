@@ -5,16 +5,17 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
+import { DeleteCategoryDTO } from 'src/shared/dtos/category/deleteCategory.dto';
 
 import { DeleteCategoryService } from './deleteCategory.service';
 
-@Controller('categories/list')
+@Controller('categories')
 export class DeleteCategoryController {
   constructor(private deleteCategoryService: DeleteCategoryService) {}
 
   @Delete()
   @HttpCode(HttpStatus.OK)
-  public async create(@Query('id') id: string) {
-    await this.deleteCategoryService.delete(id);
+  public async create(@Query() data: DeleteCategoryDTO) {
+    await this.deleteCategoryService.delete(data);
   }
 }

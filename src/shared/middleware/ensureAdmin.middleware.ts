@@ -1,6 +1,11 @@
 import envConfig from 'src/config/env';
 
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NestMiddleware,
+} from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import { UserRepo } from '../../modules/users/repository/user.repository';
@@ -21,8 +26,9 @@ export class EnsureAdminMiddleware implements NestMiddleware {
         if (!err) {
           const user_id = String(payload.sub);
           const user = await this.userRepository.findById(user_id);
-          if (!user.is_admin) {
-            throw new Error('Access denied!');
+          if (!user || !user.is_admin) {
+            return res.status(403).json({ message: 'Access Denied!' });
+            //throw new HttpException('Access Denied!', HttpStatus.FORBIDDEN);
           }
           res.locals.user = user_id;
           next();
