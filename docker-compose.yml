@@ -1,0 +1,65 @@
+version: "3.3"
+
+services:
+  database_ecommerce:
+    image: postgres
+    container_name: database_ecommerce
+    restart: always
+    ports: 
+      - "65434:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ioasys_final
+    volumes:
+      - pgdata:/data/postgres    
+
+
+  app:
+    build: .
+    container_name: app_ecommerce
+    restart: always
+    ports: 
+      - 3001:3001     
+    volumes: 
+      - .:/usr/app
+      - /usr/app/node_modules
+    links: 
+      - database_ecommerce
+    depends_on:
+      - database_ecommerce
+        
+  migration:
+    build:
+      context: .
+    command:
+      [
+        "yarn",
+        "migration:run",
+      ]
+    links:
+      - database_ecommerce
+    depends_on:
+      - database_ecommerce
+    environment:
+      - DB_HOST=database_ecommerce
+
+  seeds:
+    build:
+      context: .
+    command:
+      [
+        "yarn",
+        "seed:admin",
+      ]
+    links:
+      - database_ecommerce
+    depends_on:
+      - migration
+    environment:
+      - DB_HOST=database_ecommerce
+
+
+volumes:
+  pgdata:
+    driver: local
