@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { User } from 'src/shared/entities/user.entity';
 import { UserRepo } from 'src/modules/users/repository/user.repository';
 
@@ -9,7 +9,7 @@ export class FindUserByEmailService {
   async findByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findByEmail(email);
     if (!user) {
-      throw new HttpException('Not Found!', HttpStatus.NOT_FOUND);
+      return null;
     }
     return user;
   }

@@ -1,43 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { CreateUserDTO } from 'src/shared/dtos/createUser.dto';
-import { User } from 'src/shared/entities/user.entity';
-import { Encrypter } from 'src/shared/providers/EncryptProvider/protocols/encrypter';
 import { BcryptProvider } from 'src/shared/providers/HasherProvider/bcrypt.provider';
-import { UserRepo } from '../../repository/user.repository';
+import { UserRepo } from 'src/modules/users/repository/user.repository';
+import { mockCreateUserDTO, mockUserModel } from 'src/shared/tests/userHelpers';
 import { CreateUserService } from './createUser.service';
-
-const mockCreateUserDTO = (): CreateUserDTO => ({
-  first_name: 'First',
-  last_name: 'Last',
-  email: 'test@test.com',
-  password: 'test_pass',
-});
-
-const mockUser = (): User => ({
-  id: '79ee5a2b-6fb0-44f9-a936-0270057469bd',
-  first_name: 'First',
-  last_name: 'Last',
-  email: 'test@test.com',
-  password: 'test_pass',
-  token: null,
-  refresh_token: null,
-  is_admin: false,
-  orders: null,
-  addresses: null,
-  created_at: new Date(),
-  updated_at: null,
-  deleted_at: null,
-});
-
-const mockEncrypter = (): Encrypter => {
-  class EncrypterStub implements Encrypter {
-    encrypt(value: string): Promise<string> {
-      return Promise.resolve('hashed_password');
-    }
-  }
-  return new EncrypterStub();
-};
 
 describe('User Service', () => {
   let service: CreateUserService;
@@ -50,7 +15,7 @@ describe('User Service', () => {
           provide: UserRepo,
           useValue: {
             create: jest.fn((dto) => {
-              return mockUser();
+              return mockUserModel();
             }),
             findByEmail: jest.fn((dto) => {
               return null;
@@ -58,7 +23,7 @@ describe('User Service', () => {
           },
         },
         {
-          provide: 'HASHER_PROVIDER',
+          provide: 'HASH_PROVIDER',
           useClass: BcryptProvider,
         },
       ],
@@ -81,19 +46,19 @@ describe('User Service', () => {
   it('Should throw a ConflictException if findByEmail() return an user', async () => {
     jest
       .spyOn(repository, 'findByEmail')
-      .mockReturnValueOnce(Promise.resolve(mockUser()));
+      .mockReturnValueOnce(Promise.resolve(mockUserModel()));
     const response = service.create(mockCreateUserDTO());
     await expect(response).rejects.toThrow();
   });
 
   it('Should return the User on create() success', async () => {
-    const user = await service.create(mockUser());
+    const user = await service.create(mockUserModel());
     expect(user).toHaveProperty('id');
   });
 
   it('Should return null on create() fail', async () => {
     jest.spyOn(service, 'create').mockReturnValueOnce(Promise.resolve(null));
-    const user = await service.create(mockUser());
+    const user = await service.create(mockUserModel());
     expect(user).toBeNull();
   });
 
@@ -101,7 +66,7 @@ describe('User Service', () => {
     jest
       .spyOn(service, 'create')
       .mockReturnValueOnce(Promise.reject(new Error()));
-    const response = service.create(mockUser());
+    const response = service.create(mockUserModel());
     await expect(response).rejects.toThrow();
   });
 });

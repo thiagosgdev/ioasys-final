@@ -1,18 +1,10 @@
 import { Test } from '@nestjs/testing';
-import { Response } from 'express';
 import MockDate from 'mockdate';
 
 import { Category } from 'src/shared/entities/category.entity';
+import { mockResponse } from 'src/shared/tests/http';
 import { CreateCategoryController } from './createCategory.controller';
 import { CreateCategoryService } from './createCategory.service';
-
-const mockStatusResponse = {
-  send: jest.fn((x) => x),
-};
-const mockResponse = {
-  status: jest.fn((x) => mockStatusResponse),
-  send: jest.fn((x) => x),
-} as unknown as Response;
 
 const mockCreateCategoryService = {
   create: jest.fn((dto) => {

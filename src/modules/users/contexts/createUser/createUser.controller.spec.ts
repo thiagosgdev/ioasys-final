@@ -1,50 +1,18 @@
 import MockDate from 'mockdate';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Response } from 'express';
 
 import { CreateUserController } from 'src/modules/users/contexts/createUser/createUser.controller';
 import { CreateUserService } from 'src/modules/users/contexts/createUser/createUser.service';
-import { CreateUserDTO } from 'src/shared/dtos/createUser.dto';
-import { User } from 'src/shared/entities/user.entity';
-
-const mockStatusResponse = {
-  send: jest.fn((x) => x),
-};
-const mockResponse = {
-  status: jest.fn((x) => mockStatusResponse),
-  send: jest.fn((x) => x),
-} as unknown as Response;
-
-const mockCreateUserDTO = (): CreateUserDTO => ({
-  first_name: 'First',
-  last_name: 'Last',
-  email: 'test@test.com',
-  password: 'test_pass',
-});
-
-const mockUser = (): User => ({
-  id: '79ee5a2b-6fb0-44f9-a936-0270057469bd',
-  first_name: 'First',
-  last_name: 'Last',
-  email: 'test@test.com',
-  password: 'test_pass',
-  token: null,
-  refresh_token: null,
-  is_admin: false,
-  orders: null,
-  addresses: null,
-  created_at: new Date(),
-  updated_at: null,
-  deleted_at: null,
-});
+import { mockCreateUserDTO, mockUserModel } from 'src/shared/tests/userHelpers';
+import { mockResponse } from 'src/shared/tests/http';
 
 const mockCreateUserService = {
   create: jest.fn((dto) => {
-    return mockUser();
+    return mockUserModel();
   }),
 };
 
-describe('UsersController', () => {
+describe('Create User Controller', () => {
   let controller: CreateUserController;
 
   beforeEach(async () => {

@@ -8,7 +8,7 @@ import { UserRepo } from 'src/modules/users/repository/user.repository';
 export class CreateUserService {
   constructor(
     private userRepository: UserRepo,
-    @Inject('HASHER_PROVIDER')
+    @Inject('HASH_PROVIDER')
     private hasher: Hasher,
   ) {}
 

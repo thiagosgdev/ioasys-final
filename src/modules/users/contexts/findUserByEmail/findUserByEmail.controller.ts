@@ -1,6 +1,14 @@
-import { Body, Controller, HttpCode, HttpStatus, Get } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Get,
+  Res,
+} from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
+import { Response } from 'express';
 import { FindUserByEmailService } from './findUserByEmail.service';
 
 @Controller('users')
@@ -9,8 +17,19 @@ export class FindUserByEmailController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  public async create(@Body('email') email: string) {
-    const user = await this.findUserByEmailService.findByEmail(email);
-    return instanceToInstance(user);
+  public async find(@Body('email') email: string, @Res() res: Response) {
+    try {
+      const user = await this.findUserByEmailService.findByEmail(email);
+      if (user) {
+        res.status(200).send(instanceToInstance(user));
+      }
+      res.status(404).send({
+        message: 'Error! Check the e-mail provided! Maybe there is a typo!',
+      });
+    } catch (error) {
+      res.status(500).send({
+        message: 'Internal Server Error!',
+      });
+    }
   }
 }
