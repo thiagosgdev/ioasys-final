@@ -1,8 +1,16 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Res,
+} from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
 import { CreateUserDTO } from 'src/shared/dtos/createUser.dto';
 import { CreateUserService } from 'src/modules/users/contexts/createUser/createUser.service';
+import { Response } from 'express';
 
 @Controller('users')
 export class CreateUserController {
@@ -10,8 +18,15 @@ export class CreateUserController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  public async create(@Body() createUserRequestBody: CreateUserDTO) {
+  public async create(
+    @Body() createUserRequestBody: CreateUserDTO,
+    @Res() res: Response,
+  ) {
     const user = await this.createUserService.create(createUserRequestBody);
-    return instanceToInstance(user);
+    if (user) {
+      return res.status(201).send(instanceToInstance(user));
+    } else {
+      return res.status(400).send({ message: 'Category not Created!' });
+    }
   }
 }

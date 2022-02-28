@@ -1,10 +1,19 @@
 import MockDate from 'mockdate';
 import { Test, TestingModule } from '@nestjs/testing';
+import { Response } from 'express';
 
 import { CreateUserController } from 'src/modules/users/contexts/createUser/createUser.controller';
 import { CreateUserService } from 'src/modules/users/contexts/createUser/createUser.service';
 import { CreateUserDTO } from 'src/shared/dtos/createUser.dto';
 import { User } from 'src/shared/entities/user.entity';
+
+const mockStatusResponse = {
+  send: jest.fn((x) => x),
+};
+const mockResponse = {
+  status: jest.fn((x) => mockStatusResponse),
+  send: jest.fn((x) => x),
+} as unknown as Response;
 
 const mockCreateUserDTO = (): CreateUserDTO => ({
   first_name: 'First',
@@ -30,7 +39,7 @@ const mockUser = (): User => ({
 });
 
 const mockCreateUserService = {
-  execute: jest.fn((dto) => {
+  create: jest.fn((dto) => {
     return mockUser();
   }),
 };
@@ -52,7 +61,16 @@ describe('UsersController', () => {
     controller = module.get<CreateUserController>(CreateUserController);
   });
 
-  test('Should create a user', async () => {
-    expect(await controller.create(mockCreateUserDTO())).toEqual(mockUser());
+  it('Should 201 on create() success)', async () => {
+    await controller.create(mockCreateUserDTO(), mockResponse);
+    expect(mockResponse.status).toHaveBeenCalledWith(201);
+  });
+
+  it('Should create a user', async () => {
+    jest
+      .spyOn(mockCreateUserService, 'create')
+      .mockReturnValueOnce(await Promise.resolve(null));
+    await controller.create(mockCreateUserDTO(), mockResponse);
+    expect(mockResponse.status).toHaveBeenCalledWith(400);
   });
 });

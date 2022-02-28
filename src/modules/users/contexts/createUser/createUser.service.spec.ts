@@ -41,6 +41,7 @@ const mockEncrypter = (): Encrypter => {
 
 describe('User Service', () => {
   let service: CreateUserService;
+  let repository: UserRepo;
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -51,34 +52,56 @@ describe('User Service', () => {
             create: jest.fn((dto) => {
               return mockUser();
             }),
+            findByEmail: jest.fn((dto) => {
+              return null;
+            }),
           },
         },
         {
-          provide: BcryptProvider,
-          useValue: {
-            compareHash: jest.fn((dto) => {
-              return '';
-            }),
-          },
+          provide: 'HASHER_PROVIDER',
+          useClass: BcryptProvider,
         },
       ],
     }).compile();
 
     service = module.get<CreateUserService>(CreateUserService);
+    repository = module.get<UserRepo>(UserRepo);
   });
 
   it('Should be defined!', () => {
     expect(service).toBeDefined();
   });
 
-  //  it('Should call the repository with the correct values', async () => {
-  //    const createSpy = jest.spyOn(service, 'create');
-  //    await service.create(mockCreateUserDTO());
-  //    expect(createSpy).toHaveBeenCalledWith(mockCreateUserDTO());
-  //  });
+  it('Should call the repository with the correct values', async () => {
+    const createSpy = jest.spyOn(service, 'create');
+    await service.create(mockCreateUserDTO());
+    expect(createSpy).toHaveBeenCalledWith(mockCreateUserDTO());
+  });
 
-  //  it('Should return the User on create() success', async () => {
-  //    const User = await service.create(mockUser());
-  //    expect(User).toHaveProperty('id');
-  //  });
+  it('Should throw a ConflictException if findByEmail() return an user', async () => {
+    jest
+      .spyOn(repository, 'findByEmail')
+      .mockReturnValueOnce(Promise.resolve(mockUser()));
+    const response = service.create(mockCreateUserDTO());
+    await expect(response).rejects.toThrow();
+  });
+
+  it('Should return the User on create() success', async () => {
+    const user = await service.create(mockUser());
+    expect(user).toHaveProperty('id');
+  });
+
+  it('Should return null on create() fail', async () => {
+    jest.spyOn(service, 'create').mockReturnValueOnce(Promise.resolve(null));
+    const user = await service.create(mockUser());
+    expect(user).toBeNull();
+  });
+
+  it('Should throw if create() throws', async () => {
+    jest
+      .spyOn(service, 'create')
+      .mockReturnValueOnce(Promise.reject(new Error()));
+    const response = service.create(mockUser());
+    await expect(response).rejects.toThrow();
+  });
 });

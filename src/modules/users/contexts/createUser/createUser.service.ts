@@ -3,13 +3,13 @@ import { CreateUserDTO } from 'src/shared/dtos/createUser.dto';
 import { User } from 'src/shared/entities/user.entity';
 import { Hasher } from 'src/shared/providers/HasherProvider/protocols/hasher';
 import { UserRepo } from 'src/modules/users/repository/user.repository';
-import { BcryptProvider } from 'src/shared/providers/HasherProvider/bcrypt.provider';
 
 @Injectable()
 export class CreateUserService {
   constructor(
     private userRepository: UserRepo,
-    private hasher: BcryptProvider,
+    @Inject('HASHER_PROVIDER')
+    private hasher: Hasher,
   ) {}
 
   async create(data: CreateUserDTO): Promise<User> {
@@ -27,6 +27,9 @@ export class CreateUserService {
       password: hashedPassword,
     });
 
-    return user;
+    if (user) {
+      return user;
+    }
+    return null;
   }
 }
