@@ -23,7 +23,7 @@ export class CreateCategoryController {
     if (category) {
       return res.status(201).send(instanceToInstance(category));
     } else {
-      return res.status(400).send({ message: 'Category not Created!' });
+      return res.status(500).send({ message: 'Category not Created!' });
     }
   }
 }

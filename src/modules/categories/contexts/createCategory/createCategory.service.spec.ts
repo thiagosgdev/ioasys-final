@@ -63,4 +63,12 @@ describe('Category Service', () => {
     const category = await service.create(mockCreateCategoryDTO);
     expect(category).toHaveProperty('id');
   });
+
+  it('Should throw if create() throws', async () => {
+    jest
+      .spyOn(service, 'create')
+      .mockReturnValueOnce(Promise.reject(new Error()));
+    const result = service.create(mockCreateCategoryDTO);
+    await expect(result).rejects.toThrow();
+  });
 });

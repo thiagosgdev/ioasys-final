@@ -60,12 +60,12 @@ describe('Create Category Controller', () => {
       ).toEqual(result);
     });
 
-    it('Should return 400 if a Bad Request is made', async () => {
+    it('Should return 500 if a Server Error is made', async () => {
       jest
         .spyOn(mockCreateCategoryService, 'create')
         .mockReturnValueOnce(await Promise.resolve(null));
       await categoryController.create({ name: 'teste' }, mockResponse);
-      expect(mockResponse.status).toHaveBeenCalledWith(400);
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
     });
   });
 });
