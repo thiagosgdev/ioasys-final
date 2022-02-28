@@ -6,8 +6,8 @@ import { FindAddressById } from 'src/domain/useCases/address/findAddressById.use
 import { ListAddresses } from 'src/domain/useCases/address/listAddresses.usecase';
 import { UpdateAddress } from 'src/domain/useCases/address/updateAddress.usecase';
 import { Repository } from 'typeorm';
-import { CreateAddressDTO } from '../../../shared/dtos/createAddress.dto';
-import { UpdateAddressDTO } from '../../../shared/dtos/updateAddress.dto';
+import { CreateAddressDTO } from '../../../shared/dtos/address/createAddress.dto';
+import { UpdateAddressDTO } from '../../../shared/dtos/address/updateAddress.dto';
 import { Address } from '../../../shared/entities/address.entity';
 
 @Injectable()

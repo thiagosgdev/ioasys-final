@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateStockDTO } from 'src/shared/dtos/updateStock.dto';
+import { UpdateStockDTO } from 'src/shared/dtos/stock/updateStock.dto';
 import { Stock } from 'src/shared/entities/stock.entity';
 import { StockRepo } from 'src/modules/stock/repository/stock.repository';
 

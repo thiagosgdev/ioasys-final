@@ -22,6 +22,7 @@ const createAdmin = async () => {
     is_admin, created_at, updated_at, deleted_at) VALUES ('${id}', 'admin', 'admin',
     'admin@admin.com', '${password}', null, null, true, now(), null, null);`,
   );
+  console.log('User created!');
   await client.end();
 };
 

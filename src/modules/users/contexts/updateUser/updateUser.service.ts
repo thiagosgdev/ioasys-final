@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { UpdateUserDTO } from 'src/shared/dtos/updateUser.dto';
+import { UpdateUserDTO } from 'src/shared/dtos/user/updateUser.dto';
 import { User } from 'src/shared/entities/user.entity';
 import { Hasher } from 'src/shared/providers/HasherProvider/protocols/hasher';
 import { UserRepo } from 'src/modules/users/repository/user.repository';

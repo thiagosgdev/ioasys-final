@@ -2,7 +2,7 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse } from '@nestjs/swagger';
 
 import { instanceToInstance } from 'class-transformer';
-import { CreateProductDTO } from 'src/shared/dtos/createProduct.dto';
+import { CreateProductDTO } from 'src/shared/dtos/product/createProduct.dto';
 import { Product } from 'src/shared/entities/product.entity';
 import { CreateProductService } from './createProducts.service';
 

@@ -4,10 +4,11 @@ import {
   HttpCode,
   HttpException,
   HttpStatus,
-  Response,
+  Res,
 } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
+import { Response } from 'express';
 import { ListAddressesByUserService } from './listAddressesByUser.service';
 
 @Controller('users/addresses')
@@ -16,15 +17,15 @@ export class ListAddressesByUserController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  public async create(@Response() res) {
+  public async list(@Res() res: Response) {
     const id = res.locals.user;
     if (!id) {
-      throw new HttpException(
-        'User not authenticated!',
-        HttpStatus.UNAUTHORIZED,
-      );
+      return res.status(403).send({ message: 'User not authenticated' });
     }
     const addresses = await this.listAddressesByUserService.list(id);
-    return res.status(200).send(instanceToInstance(addresses));
+    if (addresses) {
+      return res.status(200).send(instanceToInstance(addresses));
+    }
+    return res.status(404).send({ message: 'No address found!' });
   }
 }

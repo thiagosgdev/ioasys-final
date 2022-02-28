@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
-import { CreateOrderDTO } from 'src/shared/dtos/createOrder.dto';
+import { CreateOrderDTO } from 'src/shared/dtos/order/createOrder.dto';
 import { CreateOrderService } from './createOrder.service';
 
 @Controller('orders')

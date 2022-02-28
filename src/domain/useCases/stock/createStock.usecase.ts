@@ -1,4 +1,4 @@
-import { CreateStockDTO } from 'src/shared/dtos/createStock.dto';
+import { CreateStockDTO } from 'src/shared/dtos/stock/createStock.dto';
 import { Stock } from 'src/shared/entities/stock.entity';
 
 export interface CreateStock {

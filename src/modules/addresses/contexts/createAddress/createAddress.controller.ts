@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
-import { CreateAddressDTO } from 'src/shared/dtos/createAddress.dto';
+import { CreateAddressDTO } from 'src/shared/dtos/address/createAddress.dto';
 import { CreateAddressService } from './createAddress.service';
 
 @Controller('addresses')

@@ -27,7 +27,7 @@ export class SigninUserService {
     const isValid = await this.hasher.compareHash(password, user.password);
 
     if (!isValid) {
-      throw new ConflictException('E-mail and/or password wrong!');
+      return null;
     }
 
     const token = await this.encrypter.encrypt(user.id);

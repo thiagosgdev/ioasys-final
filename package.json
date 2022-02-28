@@ -8,6 +8,7 @@
   "scripts": {
     "seed:admin": "ts-node-dev ./src/infra/typeorm/seeds/create-admin.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "migration:run": "ts-node-dev ./node_modules/typeorm/cli.js migration:run",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -38,6 +39,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.3.0",
     "ts-node-dev": "^1.1.8",
     "typeorm": "^0.2.41",
     "uuid": "^8.3.2",
@@ -87,7 +89,7 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "moduleNameMapper": {
-        "^src/(.*)$": "<rootDir>/$1"
+      "^src/(.*)$": "<rootDir>/$1"
     }
   }
 }

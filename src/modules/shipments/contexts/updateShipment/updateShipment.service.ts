@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateShipmentDTO } from 'src/shared/dtos/updateShipment.dto';
+import { UpdateShipmentDTO } from 'src/shared/dtos/shipment/updateShipment.dto';
 import { Shipment } from 'src/shared/entities/shipment.entity';
 import { ShipmentRepo } from '../../repository/shipment.repository';
 

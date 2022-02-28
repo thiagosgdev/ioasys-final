@@ -4,7 +4,7 @@ import { DeleteOrder } from 'src/domain/useCases/order/deleteOrder.usecase';
 import { FindOrderById } from 'src/domain/useCases/order/findOrderById.usecase';
 import { ListOrders } from 'src/domain/useCases/order/listOrders.usecase';
 import { Repository } from 'typeorm';
-import { CreateOrderDTO } from '../../../shared/dtos/createOrder.dto';
+import { CreateOrderDTO } from '../../../shared/dtos/order/createOrder.dto';
 import { Order } from '../../../shared/entities/order.entity';
 
 export class OrderRepo

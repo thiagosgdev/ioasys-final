@@ -1,14 +1,13 @@
 import { Body, Controller, HttpCode, HttpStatus, Put } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
-import { UpdateAddressDTO } from 'src/shared/dtos/updateAddress.dto';
+import { UpdateAddressDTO } from 'src/shared/dtos/address/updateAddress.dto';
 import { UpdateAddressService } from './updateAddress.service';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { User } from 'src/shared/entities/user.entity';
 import { Address } from 'src/shared/entities/address.entity';
 
 @ApiTags('addresses')

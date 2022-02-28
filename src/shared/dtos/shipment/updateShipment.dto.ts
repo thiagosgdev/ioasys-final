@@ -1,5 +1,5 @@
 import { IsDate, IsNotEmpty, IsString } from 'class-validator';
-import { ShipmentStatus } from '../enums/shipmentStatus.enum';
+import { ShipmentStatus } from '../../enums/shipmentStatus.enum';
 
 export class UpdateShipmentDTO {
   @IsString()

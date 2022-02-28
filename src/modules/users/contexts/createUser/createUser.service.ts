@@ -1,5 +1,5 @@
 import { Injectable, Inject, ConflictException } from '@nestjs/common';
-import { CreateUserDTO } from 'src/shared/dtos/createUser.dto';
+import { CreateUserDTO } from 'src/shared/dtos/user/createUser.dto';
 import { User } from 'src/shared/entities/user.entity';
 import { Hasher } from 'src/shared/providers/HasherProvider/protocols/hasher';
 import { UserRepo } from 'src/modules/users/repository/user.repository';

@@ -28,6 +28,8 @@ import { SigninUserService } from './contexts/signinUser/signinUser.service';
 import { UpdateUserController } from './contexts/updateUser/updateUser.controller';
 import { UpdateUserService } from './contexts/updateUser/updateUser.service';
 import { userProviders } from './user.provider';
+import { SignoutUserService } from './contexts/signout/signoutUser.service';
+import { SignoutUserController } from './contexts/signout/signoutUser.controller';
 
 @Module({
   imports: [DatabaseModule, TypeOrmModule.forFeature([User])],
@@ -47,6 +49,7 @@ import { userProviders } from './user.provider';
     ListAddressesByUserService,
     ListShipmentByUserService,
     RefreshUsersTokenService,
+    SignoutUserService,
   ],
   controllers: [
     CreateUserController,
@@ -59,6 +62,7 @@ import { userProviders } from './user.provider';
     ListAddressesByUserController,
     ListShipmentsByUserController,
     RefreshUsersTokenController,
+    SignoutUserController,
   ],
 })
 export class UserModule implements NestModule {
@@ -72,7 +76,10 @@ export class UserModule implements NestModule {
         ListShipmentsByUserController,
         ListOrdersByUserController,
         ListAddressesByUserController,
+        SignoutUserController,
       );
-    consumer.apply(EnsureAdminMiddleware).forRoutes(ListUsersController);
+    consumer
+      .apply(EnsureAdminMiddleware)
+      .forRoutes(ListUsersController, FindUserByEmailController);
   }
 }

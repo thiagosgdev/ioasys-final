@@ -4,6 +4,7 @@ import {
   HttpCode,
   HttpException,
   HttpStatus,
+  Res,
   Response,
 } from '@nestjs/common';
 
@@ -20,14 +21,11 @@ export class DeleteUserController {
   @ApiBadRequestResponse({
     description: 'This will be returned when has validation error',
   })
-  public async create(@Response() res) {
+  public async handle(@Res() res) {
     const id = res.locals.user;
 
     if (!id) {
-      throw new HttpException(
-        'User not authenticated!',
-        HttpStatus.UNAUTHORIZED,
-      );
+      return res.status(403).send({ message: 'User not authenticated' });
     }
     await this.deleteUserService.delete(id);
     return res.status(200).send({});

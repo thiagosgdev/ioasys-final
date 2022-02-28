@@ -4,8 +4,8 @@ import { FindShipmentById } from 'src/domain/useCases/shipment/findShipmentById.
 import { ListShipments } from 'src/domain/useCases/shipment/listShipments.usecase';
 import { UpdateShipment } from 'src/domain/useCases/shipment/updateShipment.usecase';
 import { Repository } from 'typeorm';
-import { CreateShipmentDTO } from '../../../shared/dtos/createShipment.dto';
-import { UpdateShipmentDTO } from '../../../shared/dtos/updateShipment.dto';
+import { CreateShipmentDTO } from '../../../shared/dtos/shipment/createShipment.dto';
+import { UpdateShipmentDTO } from '../../../shared/dtos/shipment/updateShipment.dto';
 import { Shipment } from '../../../shared/entities/shipment.entity';
 
 export class ShipmentRepo

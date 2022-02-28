@@ -21,13 +21,13 @@ export class FindUserByEmailController {
     try {
       const user = await this.findUserByEmailService.findByEmail(email);
       if (user) {
-        res.status(200).send(instanceToInstance(user));
+        return res.status(200).send(instanceToInstance(user));
       }
-      res.status(404).send({
+      return res.status(404).send({
         message: 'Error! Check the e-mail provided! Maybe there is a typo!',
       });
     } catch (error) {
-      res.status(500).send({
+      return res.status(500).send({
         message: 'Internal Server Error!',
       });
     }

@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   HttpCode,
-  HttpException,
   HttpStatus,
   Response,
 } from '@nestjs/common';
@@ -16,15 +15,15 @@ export class ListOrdersByUserController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  public async create(@Response() res) {
+  public async list(@Response() res) {
     const id = res.locals.user;
     if (!id) {
-      throw new HttpException(
-        'User not authenticated!',
-        HttpStatus.UNAUTHORIZED,
-      );
+      return res.status(403).send({ message: 'User not authenticated' });
     }
     const orders = await this.listOrdersByUserService.list(id);
+    if (orders.length < 1) {
+      return res.status(404).send({ message: 'You have no orders!' });
+    }
     return res.status(200).send(instanceToInstance(orders));
   }
 }

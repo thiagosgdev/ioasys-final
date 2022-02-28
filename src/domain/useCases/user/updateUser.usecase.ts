@@ -1,4 +1,4 @@
-import { UpdateUserDTO } from 'src/shared/dtos/updateUser.dto';
+import { UpdateUserDTO } from 'src/shared/dtos/user/updateUser.dto';
 import { User } from 'src/shared/entities/user.entity';
 
 export interface UpdateUser {

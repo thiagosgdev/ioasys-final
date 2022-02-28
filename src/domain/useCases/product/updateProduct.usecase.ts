@@ -1,4 +1,4 @@
-import { UpdateProductDTO } from 'src/shared/dtos/updateProduct.dto';
+import { UpdateProductDTO } from 'src/shared/dtos/product/updateProduct.dto';
 import { Product } from 'src/shared/entities/product.entity';
 
 export interface UpdateProduct {

@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Put } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
-import { UpdateShipmentDTO } from 'src/shared/dtos/updateShipment.dto';
+import { UpdateShipmentDTO } from 'src/shared/dtos/shipment/updateShipment.dto';
 import { UpdateShipmentService } from './updateShipment.service';
 
 @Controller('shipments')

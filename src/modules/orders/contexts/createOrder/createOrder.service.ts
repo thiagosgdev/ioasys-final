@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOrderDTO } from 'src/shared/dtos/createOrder.dto';
+import { CreateOrderDTO } from 'src/shared/dtos/order/createOrder.dto';
 import { Order } from 'src/shared/entities/order.entity';
 import { Stock } from 'src/shared/entities/stock.entity';
 import { OrderRepo } from 'src/modules/orders/repository/order.repository';

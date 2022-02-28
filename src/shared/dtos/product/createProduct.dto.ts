@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { ProductSize } from '../enums/productSize.enum';
+import { ProductSize } from '../../enums/productSize.enum';
 
 export class CreateProductDTO {
   @IsString()
