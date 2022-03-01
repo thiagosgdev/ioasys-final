@@ -6,13 +6,13 @@ const client = new Client({
   host: `${process.env.DB_HOST}`,
   database: `postgres`,
   password: `${process.env.DB_PASSWORD}`,
-  port: `${process.env.PORT}`,
+  port: `${process.env.DB_PORT}`,
 });
 
 const createDatabase = async () => {
   await client.connect();
-  await client.query(`DROP DATABASE ${process.env.DB_NAME};`);
   await client.query(`CREATE DATABASE ${process.env.DB_NAME};`);
+  console.log('Database Created!');
   await client.end();
 };
 

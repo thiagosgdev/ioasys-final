@@ -1,5 +1,11 @@
 import { Exclude } from 'class-transformer';
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsOptional,
+  IsString,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class UpdateUserDTO {
   id?: string;
@@ -18,6 +24,8 @@ export class UpdateUserDTO {
   @IsOptional()
   @IsString()
   @Exclude()
+  @MinLength(6)
+  @MaxLength(20)
   password?: string;
 
   @IsOptional()

@@ -8,9 +8,9 @@ import {
 } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
-import { CreateUserDTO } from 'src/shared/dtos/user/createUser.dto';
 import { CreateUserService } from 'src/modules/users/contexts/createUser/createUser.service';
 import { Response } from 'express';
+import { CreateUserRequestDTO } from 'src/shared/dtos/user/createUserRequest.dto';
 
 @Controller('users')
 export class CreateUserController {
@@ -19,14 +19,17 @@ export class CreateUserController {
   @Post()
   @HttpCode(HttpStatus.CREATED)
   public async create(
-    @Body() createUserRequestBody: CreateUserDTO,
+    @Body() data: CreateUserRequestDTO,
     @Res() res: Response,
   ) {
-    const user = await this.createUserService.create(createUserRequestBody);
+    if (data.password != data.password_confirmation) {
+      return res.status(400).send({ message: 'Passwords doesnt match!' });
+    }
+    const user = await this.createUserService.create(data);
     if (user) {
       return res.status(201).send(instanceToInstance(user));
     } else {
-      return res.status(400).send({ message: 'Category not Created!' });
+      return res.status(400).send({ message: 'User not Created!' });
     }
   }
 }

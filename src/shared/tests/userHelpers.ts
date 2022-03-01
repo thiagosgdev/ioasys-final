@@ -1,12 +1,13 @@
-import { CreateUserDTO } from 'src/shared/dtos/user/createUser.dto';
 import { User } from 'src/shared/entities/user.entity';
 import { UpdateUserDTO } from 'src/shared/dtos/user/updateUser.dto';
+import { CreateUserRequestDTO } from '../dtos/user/createUserRequest.dto';
 
-export const mockCreateUserDTO = (): CreateUserDTO => ({
+export const mockCreateUserDTO = (): CreateUserRequestDTO => ({
   first_name: 'First',
   last_name: 'Last',
   email: 'test@test.com',
   password: 'test_pass',
+  password_confirmation: 'test_pass',
 });
 
 export const mockUpdateUserDTO = (): UpdateUserDTO => ({

@@ -6,7 +6,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class CreateUserDTO {
+export class CreateUserRequestDTO {
   @IsNotEmpty()
   @IsString()
   first_name: string;
@@ -24,4 +24,10 @@ export class CreateUserDTO {
   @MinLength(6)
   @MaxLength(20)
   password: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(6)
+  @MaxLength(20)
+  password_confirmation: string;
 }

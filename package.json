@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "seed:admin": "ts-node-dev ./src/infra/typeorm/seeds/create-admin.ts",
+    "seed:database": "ts-node-dev ./src/infra/typeorm/seeds/create-database.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "migration:run": "ts-node-dev ./node_modules/typeorm/cli.js migration:run",
     "prebuild": "rimraf dist",
