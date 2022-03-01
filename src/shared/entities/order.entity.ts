@@ -5,17 +5,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
+import { PaymentStatus } from '../enums/paymentStatus.enum';
+import { OrderProduct } from './order_product.entity';
 import { User } from './user.entity';
-
-enum Status {
-  PROCESSING = 'processing',
-  REJECTED = 'rejected',
-  ACCEPTED = 'accepted',
-}
 
 @Entity('orders')
 export class Order {
@@ -38,11 +35,14 @@ export class Order {
   total_paid: number;
 
   @Column()
-  payment_status: Status;
+  payment_status: PaymentStatus;
 
   @ManyToOne(() => User, (user) => user.orders)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.order)
+  orderProduct: OrderProduct[];
 
   @CreateDateColumn()
   created_at: Date;

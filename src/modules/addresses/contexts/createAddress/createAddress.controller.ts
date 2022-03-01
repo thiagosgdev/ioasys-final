@@ -18,7 +18,7 @@ export class CreateAddressController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  public async create(@Res() res, @Body() data: CreateAddressDTO) {
+  public async handle(@Res() res, @Body() data: CreateAddressDTO) {
     const id = res.locals.user;
     if (!id) {
       throw new HttpException(

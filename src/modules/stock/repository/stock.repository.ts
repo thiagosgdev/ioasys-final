@@ -3,6 +3,8 @@ import { CreateStock } from 'src/domain/useCases/stock/createStock.usecase';
 import { FindStockByProductId } from 'src/domain/useCases/stock/findStockByProductId.usecase';
 import { ListStock } from 'src/domain/useCases/stock/listStock.usecase';
 import { UpdateStock } from 'src/domain/useCases/stock/updateStock.usecase';
+import { UpdateOrderDTO } from 'src/shared/dtos/order/updateOrder.dto';
+import { Order } from 'src/shared/entities/order.entity';
 import { Repository } from 'typeorm';
 import { CreateStockDTO } from '../../../shared/dtos/stock/createStock.dto';
 import { UpdateStockDTO } from '../../../shared/dtos/stock/updateStock.dto';
@@ -43,5 +45,13 @@ export class StockRepo
       },
     });
     return stock;
+  }
+  async findById(id: string): Promise<Stock> {
+    const stock = await this.repository.findOne(id);
+    return stock;
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.softDelete(id);
   }
 }

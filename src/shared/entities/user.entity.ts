@@ -11,6 +11,7 @@ import {
 import { v4 as uuidV4 } from 'uuid';
 import { Address } from './address.entity';
 import { Order } from './order.entity';
+import { Shipment } from './shipment.entity';
 
 @Entity('users')
 export class User {
@@ -44,6 +45,9 @@ export class User {
 
   @OneToMany(() => Address, (address) => address.user)
   addresses: Address[];
+
+  @OneToMany(() => Shipment, (shipment) => shipment.user)
+  shipments: Shipment[];
 
   @CreateDateColumn()
   created_at: Date;

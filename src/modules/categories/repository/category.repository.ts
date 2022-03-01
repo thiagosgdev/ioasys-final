@@ -33,16 +33,19 @@ export class CategoryRepo
   }
 
   async update(data: UpdateCategoryDTO): Promise<Category> {
-    const category = await this.repository.findOne({ id: data.id });
+    const category = this.repository.findOne({ id: data.id });
+
     if (!category) {
       return null;
     }
-    await this.repository.save({
+    const updatedCategory = {
       ...category,
       ...data,
-    });
-    const newCategory = await this.repository.findOne({ id: data.id });
-    return newCategory;
+    };
+
+    await this.repository.save(updatedCategory);
+
+    return updatedCategory;
   }
 
   async list(): Promise<Category[]> {

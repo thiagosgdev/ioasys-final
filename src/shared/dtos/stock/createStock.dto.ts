@@ -5,10 +5,6 @@ export class CreateStockDTO {
   @IsNotEmpty()
   product_id: string;
 
-  @IsString()
-  @IsNotEmpty()
-  supplier_id: string;
-
   @IsNumber()
   @IsNotEmpty()
   low_amount: number;

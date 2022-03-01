@@ -1,9 +1,4 @@
-import {
-  BadRequestException,
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateCategoryDTO } from 'src/shared/dtos/category/createCategory.dto';
 import { Category } from 'src/shared/entities/category.entity';
 import { CategoryRepo } from 'src/modules/categories/repository/category.repository';

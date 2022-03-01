@@ -1,4 +1,4 @@
-import { Injectable, Inject, ConflictException } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { CreateUserDTO } from 'src/shared/dtos/user/createUser.dto';
 import { User } from 'src/shared/entities/user.entity';
 import { Hasher } from 'src/shared/providers/HasherProvider/protocols/hasher';
@@ -15,7 +15,7 @@ export class CreateUserService {
   async create(data: CreateUserDTO): Promise<User> {
     const savedUser = await this.userRepository.findByEmail(data.email);
     if (savedUser) {
-      throw new ConflictException(
+      throw new BadRequestException(
         'E-mail already in use! Try to recover your password',
       );
     }

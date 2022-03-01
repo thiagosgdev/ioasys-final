@@ -3,7 +3,7 @@ import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
 import { instanceToInstance } from 'class-transformer';
 import { ListShipmentService } from './listShipment.service';
 
-@Controller('shipments')
+@Controller('shipments/list')
 export class ListShipmentController {
   constructor(private listShipmentService: ListShipmentService) {}
 

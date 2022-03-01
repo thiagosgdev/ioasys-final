@@ -9,6 +9,9 @@ export class UpdateAddressService {
 
   async update(data: UpdateAddressDTO): Promise<Address> {
     const address = await this.addressRepository.update(data);
+    if (!address) {
+      return null;
+    }
     return address;
   }
 }

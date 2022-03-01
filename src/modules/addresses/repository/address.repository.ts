@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateAddress } from 'src/domain/useCases/address/createAddress.usecase';
 import { DeleteAddress } from 'src/domain/useCases/address/deleteAddress.usecase';
@@ -42,6 +47,9 @@ export class AddressRepo
   }
   async update(data: UpdateAddressDTO): Promise<Address> {
     const address = await this.repository.findOne({ id: data.id });
+    if (address.user_id != data.user_id) {
+      throw new UnauthorizedException();
+    }
     return await this.repository.save({
       ...address,
       ...data,

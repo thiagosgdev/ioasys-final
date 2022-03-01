@@ -8,6 +8,10 @@ export class ListShipmentByUserService {
 
   async list(id: string): Promise<User> {
     const userShipments = await this.userRepository.listShipments(id);
+    if (!userShipments) {
+      return null;
+    }
+
     return userShipments;
   }
 }

@@ -14,7 +14,7 @@ export class DeleteOrderController {
 
   @Delete()
   @HttpCode(HttpStatus.OK)
-  public async create(@Query('id') id: string) {
+  public async delete(@Query('id') id: string) {
     await this.deleteOrdersService.delete(id);
   }
 }

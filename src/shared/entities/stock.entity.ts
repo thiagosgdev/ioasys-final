@@ -22,9 +22,6 @@ export class Stock {
   product_id: string;
 
   @Column()
-  supplier_id: string;
-
-  @Column()
   low_amount: number;
 
   @Column()
@@ -32,10 +29,6 @@ export class Stock {
 
   @Column()
   amount: number;
-
-  @ManyToOne(() => Supplier)
-  @JoinColumn({ name: 'supplier_id', referencedColumnName: 'id' })
-  supplier: Supplier;
 
   @OneToOne(() => Product, (product) => product.stock)
   @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })

@@ -16,10 +16,6 @@ export class CreateStocks1645791172197 implements MigrationInterface {
             type: 'uuid',
           },
           {
-            name: 'supplier_id',
-            type: 'uuid',
-          },
-          {
             name: 'low_amount',
             type: 'float',
             default: 2,
@@ -54,12 +50,6 @@ export class CreateStocks1645791172197 implements MigrationInterface {
             referencedTableName: 'products',
             referencedColumnNames: ['id'],
             columnNames: ['product_id'],
-          },
-          {
-            name: 'FKSupplierStock',
-            referencedTableName: 'suppliers',
-            referencedColumnNames: ['id'],
-            columnNames: ['supplier_id'],
           },
         ],
       }),

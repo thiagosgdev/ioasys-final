@@ -6,7 +6,7 @@
     "password": "postgres",
     "database": "ioasys_final",
     "synchronize": false,
-    "logging": true,
+    "logging": false,
     "migrations": ["dist/**/migrations/*.{ts,js}", "./src/infra/typeorm/migrations/*.{ts,js"],
     "entities": ["dist/**/*.entity{.ts,.js}"],
     "cli": {

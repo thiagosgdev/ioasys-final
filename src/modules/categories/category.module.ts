@@ -16,6 +16,8 @@ import { User } from 'src/shared/entities/user.entity';
 import { UserRepo } from 'src/modules/users/repository/user.repository';
 import { DeleteCategoryService } from './contexts/deleteCategory/deleteCategory.service';
 import { DeleteCategoryController } from './contexts/deleteCategory/deleteCategory.controller';
+import { UpdateCategoryService } from './contexts/updateCategory/updateCategory.service';
+import { UpdateCategoryController } from './contexts/updateCategory/updateCategory.controller';
 
 @Module({
   imports: [DatabaseModule, TypeOrmModule.forFeature([Category, User])],
@@ -27,12 +29,14 @@ import { DeleteCategoryController } from './contexts/deleteCategory/deleteCatego
     ListCategoriesService,
     ListProductsByCategoryService,
     DeleteCategoryService,
+    UpdateCategoryService,
   ],
   controllers: [
     CreateCategoryController,
     ListCategoriesController,
     ListProductsByCategoryController,
     DeleteCategoryController,
+    UpdateCategoryController,
   ],
 })
 export class CategoryModule implements NestModule {

@@ -34,9 +34,6 @@ export class Supplier {
   @Column()
   representative_name: string;
 
-  @OneToMany(() => Stock, (stock) => stock.supplier)
-  stock: Stock;
-
   @OneToMany(() => Product, (product) => product.supplier)
   products: Product[];
 

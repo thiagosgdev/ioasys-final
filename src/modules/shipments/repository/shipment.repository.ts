@@ -44,4 +44,8 @@ export class ShipmentRepo
     const shipment = await this.repository.findOne(id);
     return shipment;
   }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.softDelete(id);
+  }
 }

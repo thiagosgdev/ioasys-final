@@ -7,7 +7,10 @@ export class FindAddressesByIdService {
   constructor(private addressRepository: AddressRepo) {}
 
   async find(id: string): Promise<Address> {
-    const addresses = await this.addressRepository.findById(id);
-    return addresses;
+    const address = await this.addressRepository.findById(id);
+    if (!address) {
+      return null;
+    }
+    return address;
   }
 }

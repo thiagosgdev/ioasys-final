@@ -4,7 +4,9 @@ import {
   HttpCode,
   HttpStatus,
   Query,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 
 import { DeleteAddressService } from './deleteAddress.service';
 
@@ -14,7 +16,13 @@ export class DeleteAddressController {
 
   @Delete()
   @HttpCode(HttpStatus.OK)
-  public async create(@Query('id') id: string) {
+  public async handle(@Query('id') id: string, @Res() res: Response) {
+    if (!id) {
+      return res
+        .status(400)
+        .send({ message: 'Bad Request! Verify the id provided!' });
+    }
     await this.deleteAddressService.delete(id);
+    return res.status(200).send({});
   }
 }

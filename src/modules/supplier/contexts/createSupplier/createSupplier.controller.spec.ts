@@ -2,6 +2,7 @@ import { Test } from '@nestjs/testing';
 import MockDate from 'mockdate';
 import { CreateSupplierDTO } from 'src/shared/dtos/supplier/createSupplier.dto';
 import { Supplier } from 'src/shared/entities/supplier.entity';
+import { mockResponse } from 'src/shared/tests/http';
 
 import { CreateSupplierController } from './createSupplier.controller';
 import { CreateSupplierService } from './createSupplier.service';
@@ -31,7 +32,6 @@ const mockCreateSupplierResponse = (): Supplier => ({
   website: 'test.com.br',
   created_at: new Date(),
   products: null,
-  stock: null,
   updated_at: null,
   deleted_at: null,
 });
@@ -58,20 +58,9 @@ describe('Create Supplier Controller', () => {
   describe('Create Supplier', () => {
     it('Should return the Created Supplier', async () => {
       const result: Supplier = mockCreateSupplierResponse();
-      expect(await SupplierController.create(mockCreateSupplierDTO())).toEqual(
-        result,
-      );
+      expect(
+        await SupplierController.create(mockCreateSupplierDTO(), mockResponse),
+      ).toEqual(result);
     });
-
-    //it('Should return 400 if a Bad Request is made', async () => {
-    //  jest
-    //    .spyOn(mockCreateSupplierService, 'create')
-    //    .mockReturnValueOnce(await Promise.resolve(null));
-    //  const response = await SupplierController.create(null);
-
-    //  expect(response).toEqual({
-    //    status: 400,
-    //  });
-    //});
   });
 });

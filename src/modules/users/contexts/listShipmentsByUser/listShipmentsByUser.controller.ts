@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  HttpCode,
-  HttpException,
-  HttpStatus,
-  Res,
-  Response,
-} from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Res } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
 import { ListShipmentByUserService } from './listShipmentsByUser.service';

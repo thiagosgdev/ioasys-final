@@ -1,6 +1,14 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Res,
+} from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
+import { Response } from 'express';
 import { CreateShipmentDTO } from 'src/shared/dtos/shipment/createShipment.dto';
 import { CreateShipmentService } from './createShipment.service';
 
@@ -10,8 +18,11 @@ export class CreateShipmentController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  public async create(@Body() data: CreateShipmentDTO) {
+  public async handle(@Body() data: CreateShipmentDTO, @Res() res: Response) {
     const shipment = await this.createShipmentService.create(data);
-    return instanceToInstance(shipment);
+    if (!shipment) {
+      return res.status(400).send({ message: 'Bad Request!' });
+    }
+    return res.status(201).send(instanceToInstance(shipment));
   }
 }

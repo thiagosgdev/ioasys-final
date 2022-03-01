@@ -15,6 +15,7 @@ import { ListProductsService } from './contexts/listProducts/listProducts.servic
 import { productProviders } from './products.provider';
 import { UpdateProductController } from './contexts/updateProduct/updateProduct.controller';
 import { UpdateProductService } from './contexts/updateProduct/updateProduct.service';
+import { EnsureUserLoggedMiddleware } from 'src/shared/middleware/ensureLogged.middleware';
 
 @Module({
   imports: [DatabaseModule, TypeOrmModule.forFeature([Product, User])],
@@ -36,6 +37,15 @@ import { UpdateProductService } from './contexts/updateProduct/updateProduct.ser
 })
 export class ProductModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(EnsureAdminMiddleware).forRoutes('products');
+    consumer
+      .apply(EnsureAdminMiddleware)
+      .forRoutes(
+        CreateProductController,
+        UpdateProductController,
+        DeleteProductController,
+      );
+    consumer
+      .apply(EnsureUserLoggedMiddleware)
+      .forRoutes(ListProductsController);
   }
 }

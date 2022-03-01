@@ -1,6 +1,7 @@
-import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Res } from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
+import { Response } from 'express';
 import { ListCategoriesService } from './listCategories.service';
 
 @Controller('categories/list')
@@ -9,8 +10,11 @@ export class ListCategoriesController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  public async create() {
+  public async create(@Res() res: Response) {
     const categories = await this.listCategoriesService.list();
-    return instanceToInstance(categories);
+    if (categories.length < 1) {
+      return res.status(404).send({ message: 'No categories found!' });
+    }
+    return res.status(200).send(instanceToInstance(categories));
   }
 }

@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { PaymentStatus } from 'src/shared/enums/paymentStatus.enum';
 
 export class CreateOrderDTO {
   user_id: string;
@@ -21,6 +22,10 @@ export class CreateOrderDTO {
   @IsNumber()
   @IsNotEmpty()
   total_paid: number;
+
+  @IsString()
+  @IsNotEmpty()
+  payment_status: PaymentStatus;
 }
 
 type ProductOrderDTO = {

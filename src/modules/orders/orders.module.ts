@@ -23,6 +23,8 @@ import { FindOrderByIdController } from './contexts/findOrderById/findOrderById.
 import { User } from 'src/shared/entities/user.entity';
 import { UserRepo } from 'src/modules/users/repository/user.repository';
 import { OrderProductRepo } from './repository/orderProduct.repository';
+import { UpdateOrderService } from './contexts/updateOrder/updateOrder.service';
+import { UpdateOrderController } from './contexts/updateOrder/updateOrder.controller';
 
 @Module({
   imports: [
@@ -41,12 +43,14 @@ import { OrderProductRepo } from './repository/orderProduct.repository';
     ListOrdersService,
     DeleteOrderService,
     FindOrderByIdService,
+    UpdateOrderService,
   ],
   controllers: [
     CreateOrderController,
     ListOrdersController,
     DeleteOrderController,
     FindOrderByIdController,
+    UpdateOrderController,
   ],
 })
 export class OrderModule implements NestModule {
@@ -56,6 +60,10 @@ export class OrderModule implements NestModule {
       .forRoutes(CreateOrderController, FindOrderByIdController);
     consumer
       .apply(EnsureAdminMiddleware)
-      .forRoutes(DeleteOrderController, ListOrdersController);
+      .forRoutes(
+        DeleteOrderController,
+        ListOrdersController,
+        UpdateOrderController,
+      );
   }
 }

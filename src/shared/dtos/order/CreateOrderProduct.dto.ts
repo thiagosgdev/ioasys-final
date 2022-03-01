@@ -9,6 +9,10 @@ export class CreateOrderProductDTO {
   @IsNotEmpty()
   product_id: string;
 
+  @IsString()
+  @IsNotEmpty()
+  user_id: string;
+
   @IsNumber()
   @IsNotEmpty()
   quantity: number;

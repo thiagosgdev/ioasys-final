@@ -48,7 +48,7 @@ export class ProductRepo
 
     await this.repository.save(updatedProduct);
 
-    return product;
+    return updatedProduct;
   }
 
   async delete(id: string): Promise<void> {

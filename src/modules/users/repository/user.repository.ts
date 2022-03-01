@@ -88,8 +88,6 @@ export class UserRepo
   }
 
   async update(id: string, data: UpdateUserDTO): Promise<User> {
-    console.log('USER ' + data.first_name);
-    console.log('ID ' + id);
     data.id = id;
     const user = await this.repository.findOne(id);
 

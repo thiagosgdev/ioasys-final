@@ -5,12 +5,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 import { Category } from './category.entity';
+import { OrderProduct } from './order_product.entity';
 import { Stock } from './stock.entity';
 import { Supplier } from './supplier.entity';
 
@@ -44,6 +46,9 @@ export class Product {
   @ManyToOne(() => Supplier, (supplier) => supplier.products)
   @JoinColumn({ name: 'supplier_id', referencedColumnName: 'id' })
   supplier: Supplier;
+
+  @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.product)
+  orderProduct: OrderProduct;
 
   @OneToOne(() => Stock)
   stock: Stock;

@@ -72,7 +72,6 @@ export class UserModule implements NestModule {
       .forRoutes(
         UpdateUserController,
         DeleteUserController,
-        RefreshUsersTokenController,
         ListShipmentsByUserController,
         ListOrdersByUserController,
         ListAddressesByUserController,

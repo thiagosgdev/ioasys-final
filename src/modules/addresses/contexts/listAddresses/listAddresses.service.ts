@@ -8,6 +8,9 @@ export class ListAddressesService {
 
   async list(): Promise<Address[]> {
     const addresses = await this.addressRepository.list();
+    if (addresses.length < 1) {
+      return null;
+    }
     return addresses;
   }
 }

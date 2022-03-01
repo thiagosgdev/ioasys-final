@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import { IsDate, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ShipmentStatus } from '../../enums/shipmentStatus.enum';
 
 export class UpdateShipmentDTO {
@@ -7,14 +7,21 @@ export class UpdateShipmentDTO {
   id: string;
 
   @IsString()
+  @IsOptional()
   order_id?: string;
 
   @IsString()
+  @IsOptional()
   address_id?: string;
 
   @IsString()
+  @IsOptional()
+  user_id?;
+
+  @IsString()
+  @IsOptional()
   status?: ShipmentStatus;
 
-  @IsDate()
+  @IsOptional()
   deadline?: Date;
 }

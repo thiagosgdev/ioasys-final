@@ -1,6 +1,14 @@
-import { Body, Controller, HttpCode, HttpStatus, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Put,
+  Res,
+} from '@nestjs/common';
 
 import { instanceToInstance } from 'class-transformer';
+import { Response } from 'express';
 import { UpdateProductDTO } from 'src/shared/dtos/product/updateProduct.dto';
 import { UpdateProductService } from './updateProduct.service';
 
@@ -10,8 +18,11 @@ export class UpdateProductController {
 
   @Put()
   @HttpCode(HttpStatus.OK)
-  public async create(@Body() data: UpdateProductDTO) {
+  public async create(@Body() data: UpdateProductDTO, @Res() res: Response) {
     const product = await this.updateProductService.update(data);
-    return instanceToInstance(product);
+    if (!product) {
+      return res.status(400).send({ message: 'Bad Request!' });
+    }
+    return res.status(200).send(instanceToInstance(product));
   }
 }

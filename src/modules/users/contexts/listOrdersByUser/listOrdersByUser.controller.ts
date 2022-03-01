@@ -15,7 +15,7 @@ export class ListOrdersByUserController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  public async list(@Response() res) {
+  public async handle(@Response() res) {
     const id = res.locals.user;
     if (!id) {
       return res.status(403).send({ message: 'User not authenticated' });

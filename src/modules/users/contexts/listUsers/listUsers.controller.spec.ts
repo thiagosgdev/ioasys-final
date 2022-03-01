@@ -37,7 +37,7 @@ describe('List Users Controller', () => {
   it('Should return 404 on list() fail', async () => {
     jest
       .spyOn(mockListUsersService, 'list')
-      .mockReturnValueOnce(await Promise.resolve(null));
+      .mockReturnValueOnce(await Promise.resolve([]));
     await controller.handle(mockResponse);
     expect(mockResponse.status).toHaveBeenCalledWith(404);
   });
